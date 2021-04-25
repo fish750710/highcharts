@@ -1,0 +1,1971 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charSet="utf-8" />
+    <title>
+        大數據highcharts
+    </title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="Data-analysis/reset.css" />
+    <link rel="stylesheet" href="Data-analysis/style.css" />
+    <script type="text/javascript" src="Data-analysis/vue.min.js"></script>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="banner">
+            <div class="banner_content">
+                <h1>交易大数据</h1>
+                <p>小额资金，创造大财富</p>
+            </div>
+        </div>
+        <div class="content">
+            <div class="container">
+                <div class="section1">
+                    <h2 class="update">数据每周更新</h2>
+                    <h2 class="title">每周热门产品 <div class="msg icoMsg1"><img src="Data-analysis/icon.png" class="ico_msg1"
+                                alt="">
+                            <p class="msgShow msgBox1" style="display: none;">
+                                呈现用户上周交易商品占比，以及用户喜爱交易商品种类；让您更加了解近期热门商品，更贴近市场行情。</p>
+                        </div>
+                    </h2>
+                    <div class="s_charts">
+                        <div class="chart1_content" v-cloak>
+                            <h3>{{title}}</h3>
+                            <div class="line"></div>
+                            <div id="chart1"></div>
+                            <div id="chart1Box">
+                                <div class="box">
+                                    <div class="" v-for="(item, key) in chartData" :key="item.id">
+                                        <!-- {{item}}                                        
+                                        <div class="box_bg":style="{'opacity':(key==0 ? '1':'0.5')}" v-if="item[0] !== ''" >                                            
+                                            <input type="radio" :id="item[0]" name="gender1" :value="item[0]" :checked="key == 0" @click="charts(item[0])">
+                                            <label :for="item[0]">{{item[0]}}</label>                                       
+                                        </div>                                       -->
+                                        <div class="box_bg"
+                                            :style="[{'background':(key==0 ? '1':'#bfcffb')},{'color':(key==0 ? '1':'#1b3b94')}]"
+                                            v-if="item.name !== ''">
+                                            <input type="radio" :id="item.name" name="gender1" :value="item.name"
+                                                :checked="key == nowKey" @click="charts(item.name, key)">
+                                            <label :for="item.name">{{item.name}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart2_content" v-cloak>
+                            <h3>{{title}}</h3>
+                            <div class="line"></div>
+                            <div id="chart2"></div>
+                            <div id="chart2Box">
+                                <div class="box">
+                                    <div class="" v-for="(item, key) in chart2Data" :key="item.id">
+                                        <div
+                                            :class="[{box_bg:true},{li1_color:key==0},{li2_color:key==1},{li3_color:key==2},{li4_color:key==3}]">
+                                            <div class="name">{{item.name}}</div>
+                                            <div class="num">{{item.y}}%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="s_charts">
+                        <div class="chart3_content" v-cloak>
+                            <h3>{{title}}</h3>
+                            <div class="line"></div>
+                            <div id="chart3"></div>
+                            <div class="chart_box">
+                                <div v-for="item in productVal" :key="item.id">
+                                    <p>{{item}}%</p>
+                                </div>
+                            </div>
+                            <div class="chart_item">
+                                <div class="box">
+                                    <div class="" v-for="(item, index) in chartData">
+                                        <div class="box_bg2"
+                                            :class="[{but1_color_checked:index==0},{but1_color: index==0}, {but2_color: index==1}, {but3_color: index==2}, {but4_color: index==3}]">
+                                            <input type="radio" :id="index" name="gender3" :value="item.name"
+                                                :checked="index == indexNow" @click="charts(item.name, index);">
+                                            <label :for="index">{{item.name}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart5_content">
+                            <div class="s3-box">
+                                <!-- <h2 class="update">数据每周更新</h2> -->
+                                <h3 class="">周盈利订单排行</h3>
+                                <div class="line"></div>
+                            </div>
+                            <div id="chart5"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section2">
+                    <h2 class="update">数据每小时更新</h2>
+                    <h2 class="title">
+                        产品多空占比
+                        <div class="msg icoMsg2">
+                            <img src="Data-analysis/icon.png" class="ico_msg1" alt="">
+                            <p class="msgShow msgBox2" style="display: none;">呈现用户持仓热门商品建仓多空方向，让您了解用户多空倾向，更贴近盈利机会。</p>
+                        </div>
+                    </h2>
+                    <div id="chart4"></div>
+                    <div id="chart4Box" class="chart4_content" v-cloak>
+                        <div class="bookmark">
+                            <ul>
+                                <li :class="{itemEnableStatus: itemEnable == 'l1'}" @click="listItem('l1')">贵金属</li>
+                                <li :class="{itemEnableStatus: itemEnable == 'l2'}" @click="listItem('l2')">指数</li>
+                                <li :class="[{classRelative:true},{itemEnableStatus: itemEnable == 'l3'},{itemEnableStatus: itemEnable == 'l31'},{itemEnableStatus: itemEnable == 'l32'}]"
+                                    @click.stop="listItem('l3')">
+                                    外汇
+                                    <div class="menu-sub">
+                                        <span :class="{subBg: itemSubEnable == 'l31'}"
+                                            @click.stop="listItem('l31')">直盘货币对</span>
+                                        <span :class="{subBg: itemSubEnable == 'l32'}"
+                                            @click.stop="listItem('l32')">交叉盘货币对</span>
+                                    </div>
+                                </li>
+                                <li :class="{itemEnableStatus: itemEnable == 'l4'}" @click="listItem('l4')">能源</li>
+                            </ul>
+                        </div>
+                        <div class="first_left" v-if="firstRowLeft_Name !==''">
+                            <div class="long_short">
+                                <div class="short" @click="longShort('short',0)"
+                                    :class="[{shortEnable: firstRowLeftEnable == 'short'}]">做空</div>
+                                <div class="long" @click="longShort('long',0)"
+                                    :class="[{longEnable: firstRowLeftEnable == 'long'}]">做多
+                                </div>
+                            </div>
+                            <div class="option" v-if="firstRowLeftEnable == 'long'">做多</div>
+                            <div class="option" v-else="firstRowLeftEnable == 'short'">做空</div>
+                            <div class="num">{{firstRowLeft_Num}}%</div>
+                            <div class="name">{{firstRowLeft_Name}}</div>
+                        </div>
+                        <div class="first_center" v-if="firstRowCenter_Name !==''">
+                            <div class="long_short">
+                                <div class="short" @click="longShort('short',1)"
+                                    :class="[{shortEnable: firstRowCenterEnable == 'short'}]">做空</div>
+                                <div class="long" @click="longShort('long',1)"
+                                    :class="[{longEnable: firstRowCenterEnable == 'long'}]">
+                                    做多</div>
+                            </div>
+                            <div class="option" v-if="firstRowCenterEnable == 'long'">做多</div>
+                            <div class="option" v-else="firstRowCenterEnable == 'short'">做空</div>
+                            <div class="num">{{firstRowCenter_Num}}%</div>
+                            <div class="name">{{firstRowCenter_Name}}</div>
+                        </div>
+                        <div class="first_right" v-if="firstRowRight_Name !==''">
+                            <div class="long_short">
+                                <div class="short" @click="longShort('short',2)"
+                                    :class="[{shortEnable: firstRowRightEnable == 'short'}]">做空</div>
+                                <div class="long" @click="longShort('long',2)"
+                                    :class="[{longEnable: firstRowRightEnable == 'long'}]">做多
+                                </div>
+                            </div>
+                            <div class="option" v-if="firstRowRightEnable == 'long'">做多</div>
+                            <div class="option" v-else="firstRowRightEnable == 'short'">做空</div>
+                            <div class="num">{{firstRowRight_Num}}%</div>
+                            <div class="name">{{firstRowRight_Name}}</div>
+                        </div>
+                        <div class="second_Left" v-if="secondRowLeft_Name !==''">
+                            <div class="long_short">
+                                <div class="short" @click="longShort('short',3)"
+                                    :class="[{shortEnable: secondRowLeftEnable == 'short'}]">做空</div>
+                                <div class="long" @click="longShort('long',3)"
+                                    :class="[{longEnable: secondRowLeftEnable == 'long'}]">做多
+                                </div>
+                            </div>
+                            <div class="option" v-if="secondRowLeftEnable == 'long'">做多</div>
+                            <div class="option" v-else="secondRowLeftEnable == 'short'">做空</div>
+                            <div class="num">{{secondRowLeft_Num}}%</div>
+                            <div class="name">{{secondRowLeft_Name}}</div>
+                        </div>
+                        <div class="second_Center" v-if="secondRowCenter_Name !==''">
+                            <div class="long_short">
+                                <div class="short" @click="longShort('short',4)"
+                                    :class="[{shortEnable: secondRowCenterEnable == 'short'}]">做空</div>
+                                <div class="long" @click="longShort('long',4)"
+                                    :class="[{longEnable: secondRowCenterEnable == 'long'}]">
+                                    做多</div>
+                            </div>
+                            <div class="option" v-if="secondRowCenterEnable == 'long'">做多</div>
+                            <div class="option" v-else="secondRowCenterEnable == 'short'">做空</div>
+                            <div class="num">{{secondRowCenter_Num}}%</div>
+                            <div class="name">{{secondRowCenter_Name}}</div>
+                        </div>
+                        <div class="second_Right" v-if="secondRowRight_Name !==''">
+                            <div class="long_short">
+                                <div class="short" @click="longShort('short',5)"
+                                    :class="[{shortEnable: secondRowRightEnable == 'short'}]">做空</div>
+                                <div class="long" @click="longShort('long',5)"
+                                    :class="[{longEnable: secondRowRightEnable == 'long'}]">
+                                    做多</div>
+                            </div>
+                            <div class="option" v-if="secondRowRightEnable == 'long'">做多</div>
+                            <div class="option" v-else="secondRowRightEnable == 'short'">做空</div>
+                            <div class="num">{{secondRowRight_Num}}%</div>
+                            <div class="name">{{secondRowRight_Name}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section3"></div>
+                <div class="section4">
+                    <h2 class="update">数据每周更新</h2>
+                    <h2 class="title">持仓商品排行 <div class="msg icoMsg3"><img src="Data-analysis/icon.png" class="ico_msg1"
+                                alt="">
+                            <p class="msgShow msgBox3" style="display: none;">呈现用户持仓商品比例，越高的持仓比例，意指该商品拥有有较高的持仓价值。</p>
+                        </div>
+                    </h2>
+                    <div class="s_charts">
+                        <div class="chart6_content" v-cloak>
+                            <h3>{{title}}</h3>
+                            <div class="line"></div>
+                            <div id="chart6"></div>
+                            <div id="chart6Box">
+                                <div class="box">
+                                    <div v-for="(item, key) in chartData6" :key="item.id">
+                                        <div class="box_bg"
+                                            :style="[{'background':(key==0 ? '1':'#bfcffb')},{'color':(key==0 ? '1':'#1b3b94')}]"
+                                            v-if="item.name !== ''">
+                                            <input type="radio" :id="item.name+1" name="gender6" :value="item.name"
+                                                :checked="key == nowKey" @click="chart6(item.name, key)">
+                                            <label :for="item.name+1">{{item.name}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart7_content" v-cloak>
+                            <h3>{{title}}</h3>
+                            <div class="line"></div>
+                            <div id="chart7"></div>
+                            <div id="chart7Box">
+                                <div class="box">
+                                    <div v-for="(item, key) in chartData7" :key="item.id">
+                                        <div class="box_bg"
+                                            :style="[{'background':(key==0 ? '1':'#bfcffb')},{'color':(key==0 ? '1':'#1b3b94')}]"
+                                            v-if="item.name !== ''">
+                                            <input type="radio" :id="item.name+2" name="gender7" :value="item.name"
+                                                :checked="key == nowKey" @click="chart7(item.name, key)">
+                                            <label :for="item.name+2">{{item.name}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer">
+                    <p>风险提示：外汇衍生品保证金交易具有高风险性，损失金额可能会超过您原本的投资金额。同时，您并没有资格获得所投资产品的实际所有权，杠杆交易在放大收益的同时也可能会放大损失。本公司无法承诺并保证交易业绩、投资回报、或任何固定的回报率。我们提醒您仔细考虑投资的风险性，慎重的决定风险资本金额。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="Data-analysis/jquery3.3.1.min.js"></script>
+<script type="text/javascript" src="Data-analysis/highcharts.js"></script>
+<script type="text/javascript" src="Data-analysis/common.js"></script>
+<script type="text/javascript" src="Data-analysis/ctrl.js"></script>
+<script>
+    $(function () {
+        var gradualColor = {
+            linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
+            stops: [[0, '#4d7bfe'], [1, '#1f3e99']]
+        };
+        var gradualColor2 = {
+            linearGradient: { x1: 1, x2: 0, y1: 1, y2: 0 },
+            stops: [[0, '#90d2fa'], [1, '#1f3e99']]
+        };
+        var gradualColor3 = {
+            linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
+            stops: [[0, '#60dfc3'], [1, '#1f3e99']]
+        };
+        var gradualColor4 = {
+            linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
+            stops: [[0, '#af8ddf'], [1, '#1f3e99']]
+        };
+        var transparent = 'rgba(0,0,0,0)';
+
+        var chart1 = new Vue({
+            el: '.chart1_content',
+            data: {
+                chartData: [{ name: 'XAUUSD', y: 0.571721055804205 },
+                { name: 'TECH100', y: 0.136416044206787 },
+                { name: 'USOil', y: 0.0463924886919965 },
+                { name: 'EURUSD', y: 0.0325823728986788 },
+                { name: 'USDJPY', y: 0.0314339100200359 },
+                { name: 'CHINA300', y: 0.0276938895461299 },
+                { name: 'HK50', y: 0.0258810018083763 },],
+                // dataArrey1: res.data.content_text[0],
+                // title: res.data.content_text[0].remark,
+                dataArrey1: "",
+                title: "热门交易产品",
+                dataArray: [],
+                // chartData: [],
+                drawData: [],
+                dataLeft: [],
+                percent: 0,
+                nowKey: 0
+            },
+            mounted() {
+                this.draw();
+            },
+            created() {
+                // this.chartData = formatContent(this.dataArrey1, 2, 2);
+                this.drawData = this.chartData.filter(function (item, index, arr) {
+                    return index == 0
+                })
+                this.dataLeft = 1 - this.drawData[0].y
+                this.drawData.push({ name: '', y: this.dataLeft })
+                this.percent = Math.round(this.drawData[0].y * 100)
+            },
+            methods: {
+                charts(name, key) {
+                    this.nowKey = key
+                    this.drawData = this.chartData.filter(e => {
+                        return e.name == name
+                    })
+                    this.dataLeft = 1 - this.drawData[0].y
+                    this.drawData.push({ name: '', y: this.dataLeft })
+                    this.draw();
+                    this.percent = Math.round(this.drawData[0].y * 100)
+                    chart1.setTitle({
+                        text: '<b style="font-size:0.2rem; color:#ffffff ">' + this.title + '</b>' + '<br>'
+                            + '<b style="font-size:0.6rem; color:#ffffff ">' + this.percent + '</b>' + ' %' + '<br>'
+                            + '<b style="color:#ffffff">' + name + '</b>'
+                    })
+                },
+                draw() {
+                    $("#chart1").highcharts({
+                        credits: {
+                            enabled: false
+                        },
+                        title: {
+                            floating: true,
+                            // y: 50,
+                            // useHTML: true,
+                            text: '<b style="font-size:0.2rem; color:#ffffff ">' + this.title + '</b>' + '<br>'
+                                + '<b style="font-size:0.6rem; color:#ffffff ">' + this.percent + ' %' + '</b><br>'
+                                + '<b style="color:#ffffff">' + this.drawData[0].name + '</b>',
+                            style: {
+                                color: '#4d7bfe',
+                                fontWeight: 'bold',
+                                fontSize: '16px'
+                            }
+                        },
+                        chart: {
+                            type: 'pie',
+                            renderTo: 'chart1',
+                            // defaultSeriesType: 'bar',
+                            backgroundColor: '#222c40',
+                            borderRadius: '30',
+                            borderWidth: 2,
+                            borderColor: "#222c40",
+                            reflow: false,
+                            shadow: true,
+                            marginTop: '40',
+                            marginBottom: '160'
+                        },
+                        tooltip: {
+                            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                        },
+                        accessibility: {
+                            point: {
+                                valueSuffix: '%'
+                            }
+                        },
+                        plotOptions: {
+                            pie: {
+                                allowPointSelect: true,
+                                cursor: 'pointer',
+                                shadow: true,
+                                dataLabels: {
+                                    enabled: false,
+                                },
+                            }
+                        },
+                        series: [{
+                            name: this.title,
+                            data: this.drawData,
+                            borderColor: 'none',
+                            size: '95%',
+                            innerSize: '60%',
+                            enableMouseTracking: false, //禁止點擊圖表                                           
+                            colors: [gradualColor, "#505f7b"],
+                        }],
+                    }, function (c) {
+                        var centerY = c.series[0].center[1],
+                            titleHeight = parseInt(c.title.styles.fontSize);
+                        c.setTitle({
+                            // 中心
+                            y: centerY
+                        });
+                        chart1 = c;
+                    });
+                }
+            }
+        })
+        // var chart2Data = res.data.content_text[1]
+        // var chart2Title = res.data.content_text[1].remark
+        // chart2Data = formatContent(chart2Data, 2, 2);
+        // var chart2Num = Math.round(chart2Data[0].y * 100)
+        var chart2 = new Vue({
+            el: ".chart2_content",
+            data: {
+                // title: res.data.content_text[1].remark,
+                // chart2Data: res.data.content_text[1],
+                title: "周交易分布",
+                chart2Data: [{ name: '股指', y: 0.178112525266889 },
+                { name: '贵金属', y: 0.62013644120306 },
+                { name: '能源产品', y: 0.0874583540716513 },
+                { name: '农产品', y: 0.000740865829007913 },
+                    // {name:'外汇', y: 0.113551813629392}, 
+                ],
+                chart2y: []
+            },
+            mounted() {
+                this.draw();
+            },
+            created() {
+                // this.chart2Data = formatContent(this.chart2Data, 2, 2);
+                this.chart2Data.map(e => {
+                    return e.y = e.y.toFixed(2) * 100
+                })
+            },
+            methods: {
+                draw() {
+                    $("#chart2").highcharts({
+                        credits: {
+                            enabled: false
+                        },
+                        title: {
+                            floating: true,
+                            // y: 50,
+                            // useHTML: true,
+                            text: '',
+                            style: {
+                                color: '#ffffff',
+                                fontWeight: 'bold',
+                                fontSize: '16px'
+                            },
+                        },
+                        chart: {
+                            type: 'pie',
+                            renderTo: 'chart2',
+                            // defaultSeriesType: 'bar',
+                            backgroundColor: '#222c40',
+                            borderRadius: '30',
+                            borderWidth: 2,
+                            borderColor: "#222c40",
+                            reflow: false,
+                            shadow: true,
+                            marginTop: '50',
+                            marginBottom: '170'
+
+                        },
+                        tooltip: {
+                            enabled: false,
+                            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                        },
+                        accessibility: {
+                            point: {
+                                valueSuffix: '%'
+                            }
+                        },
+                        plotOptions: {
+                            pie: {
+                                allowPointSelect: true,
+                                cursor: 'pointer',
+                                shadow: true,
+                                dataLabels: {
+                                    enabled: false,
+                                    alignTo: 'crookedLine',
+                                    format: ' <b style="color:#ffffff">{point.percentage:.0f} % </b><br><b style="font-size:0.2rem;">{point.name}</b>',
+                                    connectorColor: 'rgba(0,0,0,0)',
+                                    color: '#ffffff',
+                                    style: {
+                                        fontSize: '0.3rem',
+                                    },
+                                },
+                                point: {
+                                    events: {
+                                        // mouseOver: function(e) {    
+                                        //     var num = Math.round(e.target.y*100)
+                                        //     var title = '周交易分布'
+                                        //     chart.setTitle({                                                             
+                                        //         text: '<b style="font-size:14px; color:#ffffff ">'+ title + '</b>'+'<br>'
+                                        //               +'<b style="font-size:40px; color:#84ffcf ">'+ num + '</b>'+' %'+'<br>'
+                                        //               +'<b style="">'+ e.target.name +'</b>'
+                                        //     });                                                                
+                                        // },                             
+                                        // click: function (e) {
+                                        // var num = Math.round(e.point.y * 100)
+                                        // console.log(e)
+                                        //     chart2.setTitle({
+                                        //         text: '<b style="font-size:0.24rem; color:#ffffff ">' +  + '</b>' + '<br>'
+                                        //             + '<b style="font-size:0.5rem; color:#ffffff ">' + num + '</b>' + ' %' + '<br>'
+                                        //             + '<b style="">' + e.point.name + '</b>'
+                                        //     });
+                                        // }
+                                    }
+                                },
+                            }
+                        },
+                        series: [{
+                            name: '周交易分布',
+                            data: this.chart2Data,
+                            borderColor: '#4d7bfe',
+                            enableMouseTracking: false, //禁止點擊圖表,
+                            // size: '100%',
+                            // innerSize: '100%',
+                            borderWidth: 0,
+                            colors: [gradualColor, gradualColor2, gradualColor3, gradualColor4],
+                            // states: {
+                            //     hover: {
+                            //         halo: {
+                            //             size: 0,
+                            //             opacity: .3
+                            //         }
+
+                            //     }
+                            // }
+                        }],
+                    }, function (c) {
+                        var centerY = c.series[0].center[1],
+                            titleHeight = parseInt(c.title.styles.fontSize);
+                        c.setTitle({
+                            // 中心
+                            y: centerY + titleHeight * 3,
+                            // text: '<b style="font-size:0.24rem; color:#ffffff ">' + this.title + '</b>' + '<br>'
+                            //     + '<b style="font-size:0.5rem; color:#ffffff ">' + this.chart2Num + '</b>' + ' %' + '<br>'
+                            //     + '<b style="">' + this.chart2Data[0].name + '</b>'
+                        });
+                        chart2 = c;
+                    });
+                }
+            }
+        })
+        // var chartData3 = res.data.content_text[2]
+        // chartData3 = formatContent(chartData3, 8, 8);
+        var chart3 = new Vue({
+            el: '.chart3_content',
+            data: {
+                title: "各类产品交易占比",
+                productVal: [100, 100, 100, 100],
+                chartData: [{
+                    name: '贵金属'
+                },
+                {
+                    name: '外汇'
+                },
+                {
+                    name: '能源产品'
+                },
+                {
+                    name: '股指'
+                }
+                ],
+                chartData3: [{ name: '股指', year: '2020年', week: '32周', color: gradualColor, data: [0.178112525266889, 0.177137030636752, 0.230914749827196, 0.168239380283686] },
+                { name: '贵金属', year: '2020年', week: '31周', color: gradualColor2, data: [0.62013644120306, 0.629837028684123, 0.651923057572138, 0.692188564899485] },
+                { name: '能源产品', year: '2020年', week: '30周', color: gradualColor3, data: [0.087458354071651, 0.08326621170406, 0.036787682276166, 0.0820972898779] },
+                { name: '外汇', year: '2020年', week: '29周', color: gradualColor4, data: [0.113551813629392, 0.109049460098022, 0.079280795277133, 0.056872539082555] },
+                ],
+                indexNow: 0
+            },
+            mounted() {
+                this.draw();
+            },
+            created() {
+                // this.chartData3 = formatContent(res.data.content_text[2], 8, 8);
+                // this.chartData3.forEach((e)=>{
+                //     this.chartData3 = e.data.map(item=>{
+                //         return item.toFixed(2) * 100
+                //     })
+                // })
+                // console.log(this.chartData3)
+            },
+            methods: {
+                charts(name, index) {
+                    this.indexNow = index;
+                    if (name === '贵金属') {
+
+                        this.formatNum(this.chartData3[0].data)
+                    } else if (name === '外汇') {
+                        this.formatNum(this.chartData3[1].data)
+
+                    } else if (name === '能源产品') {
+                        this.formatNum(this.chartData3[2].data)
+
+                    } else if (name === '股指') {
+                        this.formatNum(this.chartData3[3].data)
+
+                    } else {
+                        this.productVal = [100, 100, 100, 100]
+                    }
+                    // this.draw();
+                },
+                formatNum(arr) {
+                    this.productVal = arr.map(e => {
+                        return e.toFixed(2) * 100
+                    })
+                },
+                draw() {
+                    var vm = this
+                    $("#chart3").highcharts({
+                        credits: {
+                            enabled: false
+                        },
+                        chart: {
+                            type: 'column',
+                            backgroundColor: '#222c40',
+                            borderRadius: '30',
+                            borderWidth: 2,
+                            borderColor: "#222c40",
+                            shadow: true,
+                            marginTop: 100,
+                            marginBottom: 170,
+                            marginLeft: 60,
+                            marginRight: 30,
+                        },
+                        title: {
+                            text: 'tsattat',
+                        },
+                        xAxis: {
+                            categories: this.chartData3,
+                            lineColor: '#4d7bfe',
+                            lineWidth: 3,
+                            labels: {
+                                style: {
+                                    color: '#d8d8d8',
+                                    fontSize: '16px'
+                                },
+                                formatter: function (e) {
+                                    return '<b style="font-size:0.2rem;">' + this.value.year + '</b>' + '<br>' + '<b style="font-size:0.26rem;">' + this.value.week + '</b>'
+                                }
+                            }
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: ''
+                            },
+                            gridLineColor: '#5c6168',
+                            tickPixelInterval: 25
+                        },
+                        tooltip: {
+                            enabled: false,
+                            // pointFormat: '<span style="font-size:0.24rem; color:{series.color}">{series.name}:{point.percentage:.1f}%</span><br/>',
+                            // shared: true, //顯示全部
+                            // backgroundColor: '#222c40',
+                            // borderWidth: 0,
+
+                        },
+                        plotOptions: {
+                            column: {
+                                stacking: 'percent',
+                                dataLabels: {
+                                    enabled: false,
+                                    format: '<span style="font-size:0.26rem;">{point.percentage:.1f}%</span>',
+                                },
+                                borderColor: 'rbga(0,0,0,0)'
+                            },
+                            series: {
+                                events: {
+                                    // legendItemClick: function (e) {
+                                    //     vm.productVal = e.target.yData.map(item => {                                                
+                                    //         return item.toFixed(2) * 100
+                                    //     })
+                                    //     return false
+                                    // },
+                                    // mouseOver: function () {
+                                    //     console.log(e)
+                                    // }
+                                }
+                            }
+                        },
+                        legend: {
+                            enabled: false,
+                            align: 'center',
+                            verticalAlign: 'bottom',
+                            floating: true,
+                            backgroundColor:
+                                Highcharts.defaultOptions.legend.backgroundColor || '#222c40',
+                            borderColor: '#222c40',
+                            borderWidth: 1,
+                            shadow: false,
+                            itemStyle: {
+                                color: '#ffffff',
+                            },
+                        },
+                        series: this.chartData3,
+                    },
+                        function (c) {
+                            $(c.series).each(function (i, serie) {
+                                // $(serie.legendItem.element).hover(function (e) {
+                                //     vm.productVal = serie.yData.map(item => {
+                                //         return item.toFixed(2) * 100
+                                //     })
+                                //     // on over
+                                // }, function () {
+                                //     // on mouseout
+                                // });
+                            });
+                        })
+                }
+            },
+        })
+
+
+        const chartData4 = [
+            {
+                "type": "hold",
+                "date": "2021-04-25 16:00",
+                "prd": "AUD",
+                "vals": {
+                    "1": 1.74,
+                    "2": 1.98,
+                    "1rate": "46.77",
+                    "2rate": "53.23"
+                }
+            },
+            {
+                "type": "hold",
+                "date": "2021-04-25 16:00",
+                "prd": "AUDJPY",
+                "vals": {
+                    "1": 0.22,
+                    "2": 1,
+                    "1rate": "18.03",
+                    "2rate": "81.97"
+                }
+            },
+            {
+                "type": "hold",
+                "date": "2021-04-25 16:00",
+                "prd": "AUDUSD",
+                "vals": {
+                    "1": 0.32,
+                    "2": 0.51,
+                    "1rate": "38.55",
+                    "2rate": "61.45"
+                }
+            },
+            {
+                "type": "hold",
+                "date": "2021-04-25 16:00",
+                "prd": "CHINA300",
+                "vals": {
+                    "1": 6.6,
+                    "2": 3.78,
+                    "1rate": "63.58",
+                    "2rate": "36.42"
+                }
+            },
+            {
+                "type": "hold",
+                "date": "2021-04-25 16:00",
+                "prd": "DJ30",
+                "vals": {
+                    "1": 0.03,
+                    "2": 1.8,
+                    "1rate": "1.64",
+                    "2rate": "98.36"
+                }
+            },
+            {
+                "type": "hold",
+                "date": "2021-04-25 16:00",
+                "prd": "EUR",
+                "vals": {
+                    "1": 0.77,
+                    "2": 8.79,
+                    "1rate": "8.05",
+                    "2rate": "91.95"
+                }
+            },
+            {
+                "type": "hold",
+                "date": "2021-04-25 16:00",
+                "prd": "EURAUD",
+                "vals": {
+                    "1": 0.04,
+                    "2": 0.51,
+                    "1rate": "7.27",
+                    "2rate": "92.73"
+                }
+            },
+            {
+                "type": "hold",
+                "date": "2021-04-25 16:00",
+                "prd": "EURCHF",
+                "vals": {
+                    "1": 0,
+                    "2": 0.62,
+                    "1rate": "0.00",
+                    "2rate": "100.00"
+                }
+            },
+            {
+                "type": "hold",
+                "date": "2021-04-25 16:00",
+                "prd": "EURGBP",
+                "vals": {
+                    "1": 0.02,
+                    "2": 0.9,
+                    "1rate": "2.17",
+                    "2rate": "97.83"
+                }
+            },
+            {
+                "type": "hold",
+                "date": "2021-04-25 16:00",
+                "prd": "EURUSD",
+                "vals": {
+                    "1": 0.64,
+                    "2": 6.75,
+                    "1rate": "8.66",
+                    "2rate": "91.34"
+                }
+            },
+            {
+                "type": "hold",
+                "date": "2021-04-25 16:00",
+                "prd": "GBP",
+                "vals": {
+                    "1": 1.73,
+                    "2": 0.77,
+                    "1rate": "69.20",
+                    "2rate": "30.80"
+                }
+            },
+            {
+                "type": "hold",
+                "date": "2021-04-25 16:00",
+                "prd": "GBPAUD",
+                "vals": {
+                    "1": 0.43,
+                    "2": 0.54,
+                    "1rate": "44.33",
+                    "2rate": "55.67"
+                }
+            },
+            {
+                "type": "hold",
+                "date": "2021-04-25 16:00",
+                "prd": "GBPJPY",
+                "vals": {
+                    "1": 0.09,
+                    "2": 0.04,
+                    "1rate": "69.23",
+                    "2rate": "30.77"
+                }
+            },
+            {
+                "type": "hold",
+                "date": "2021-04-25 16:00",
+                "prd": "GBPUSD",
+                "vals": {
+                    "1": 0.2,
+                    "2": 0.17,
+                    "1rate": "54.05",
+                    "2rate": "45.95"
+                }
+            },
+            {
+                "type": "hold",
+                "date": "2021-04-25 16:00",
+                "prd": "GER30",
+                "vals": {
+                    "1": 0.03,
+                    "2": 2.05,
+                    "1rate": "1.44",
+                    "2rate": "98.56"
+                }
+            },
+            {
+                "type": "hold",
+                "date": "2021-04-25 16:00",
+                "prd": "HK50",
+                "vals": {
+                    "1": 0.28,
+                    "2": 0.68,
+                    "1rate": "29.17",
+                    "2rate": "70.83"
+                }
+            },
+            {
+                "type": "hold",
+                "date": "2021-04-25 16:00",
+                "prd": "JPY",
+                "vals": {
+                    "1": 1.18,
+                    "2": 23.13,
+                    "1rate": "4.85",
+                    "2rate": "95.15"
+                }
+            },
+            {
+                "type": "hold",
+                "date": "2021-04-25 16:00",
+                "prd": "NGAS",
+                "vals": {
+                    "1": 0.11,
+                    "2": 0.05,
+                    "1rate": "68.75",
+                    "2rate": "31.25"
+                }
+            },
+            {
+                "type": "hold",
+                "date": "2021-04-25 16:00",
+                "prd": "SP500",
+                "vals": {
+                    "1": 0,
+                    "2": 2.02,
+                    "1rate": "0.00",
+                    "2rate": "100.00"
+                }
+            },
+            {
+                "type": "hold",
+                "date": "2021-04-25 16:00",
+                "prd": "TECH100",
+                "vals": {
+                    "1": 4.55,
+                    "2": 28.06,
+                    "1rate": "13.95",
+                    "2rate": "86.05"
+                }
+            },
+            {
+                "type": "hold",
+                "date": "2021-04-25 16:00",
+                "prd": "UKOil",
+                "vals": {
+                    "1": 0.01,
+                    "2": 0.15,
+                    "1rate": "6.25",
+                    "2rate": "93.75"
+                }
+            },
+            {
+                "type": "hold",
+                "date": "2021-04-25 16:00",
+                "prd": "USDCAD",
+                "vals": {
+                    "1": 5.61,
+                    "2": 0.1,
+                    "1rate": "98.25",
+                    "2rate": "1.75"
+                }
+            },
+            {
+                "type": "hold",
+                "date": "2021-04-25 16:00",
+                "prd": "USDCHF",
+                "vals": {
+                    "1": 0.39,
+                    "2": 0.1,
+                    "1rate": "79.59",
+                    "2rate": "20.41"
+                }
+            },
+            {
+                "type": "hold",
+                "date": "2021-04-25 16:00",
+                "prd": "USOil",
+                "vals": {
+                    "1": 4.32,
+                    "2": 6.11,
+                    "1rate": "41.42",
+                    "2rate": "58.58"
+                }
+            },
+            {
+                "type": "hold",
+                "date": "2021-04-25 16:00",
+                "prd": "XAGCNH",
+                "vals": {
+                    "1": 0.11,
+                    "2": 0.1,
+                    "1rate": "52.38",
+                    "2rate": "47.62"
+                }
+            },
+            {
+                "type": "hold",
+                "date": "2021-04-25 16:00",
+                "prd": "XAGUSD",
+                "vals": {
+                    "1": 2.31,
+                    "2": 1.91,
+                    "1rate": "54.74",
+                    "2rate": "45.26"
+                }
+            },
+            {
+                "type": "hold",
+                "date": "2021-04-25 16:00",
+                "prd": "XAUCNH",
+                "vals": {
+                    "1": 0.55,
+                    "2": 0.1,
+                    "1rate": "84.62",
+                    "2rate": "15.38"
+                }
+            },
+            {
+                "type": "hold",
+                "date": "2021-04-25 16:00",
+                "prd": "XAUUSD",
+                "vals": {
+                    "1": 43.56,
+                    "2": 49.41,
+                    "1rate": "46.85",
+                    "2rate": "53.15"
+                }
+            }
+        ]
+        let data = {}
+        let PreciousMetalsArray = []
+        let IndexArray = []
+        let ForeignExchangeArray = []
+        let ForeignExchangeCrossArray = []
+        let EnergyArray = []
+        PreciousMetalsArray = chartData4.filter(e => {
+            if (e.prd == "XAUUSD") {
+                e.name = "黄金"
+            } else if (e.prd == "XAGUSD") {
+                e.name = "白银"
+            } else if (e.prd == "XAUCNH") {
+                e.name = "离岸人民币黄金"
+            } else if (e.prd == "XAGCNH") {
+                e.name = "离岸人民币白银"
+                // e.test = Number(e.vals['1rate'])
+            }
+            return e.prd == "XAUUSD" || e.prd == "XAGUSD" || e.prd == "XAUCNH" || e.prd == "XAGCNH"
+        })
+        // console.log("貴金屬", PreciousMetalsArray[0])
+        IndexArray = chartData4.filter(e => {
+            if (e.prd == "TECH100") {
+                e.name = "美国TECH100"
+            } else if (e.prd == "DJ30") {
+                e.name = "美国DJ30"
+            } else if (e.prd == "CHINA300") {
+                e.name = "中华300"
+            } else if (e.prd == "SP500") {
+                e.name = "美国SP500"
+            } else if (e.prd == "HK50") {
+                e.name = "香港50"
+            } else if (e.prd == "GER30") {
+                e.name = "德国GER30"
+            }
+            return e.prd == "TECH100" || e.prd == "DJ30" || e.prd == "CHINA300" || e.prd == "SP500" || e.prd == "HK50" || e.prd == "GER30"
+        })
+        ForeignExchangeArray = chartData4.filter(e => {
+            if (e.prd == "EURUSD") {
+                e.name = "欧元美元"
+            } else if (e.prd == "GBPUSD") {
+                e.name = "英镑美元"
+            } else if (e.prd == "AUDUSD") {
+                e.name = "澳元美元"
+            } else if (e.prd == "USDCAD") {
+                e.name = "美元加元"
+            } else if (e.prd == "USDCHF") {
+                e.name = "美元瑞朗"
+            } else if (e.prd == "EURGBP") {
+                e.name = "欧元英镑"
+            } else if (e.prd == "EURAUD") {
+                e.name = "欧元澳元"
+            } else if (e.prd == "EURCHF") {
+                e.name = "欧元瑞朗"
+            } else if (e.prd == "GBPAUD") {
+                e.name = "英镑澳元"
+            } else if (e.prd == "GBPJPY") {
+                e.name = "英镑日元"
+            } else if (e.prd == "AUDJPY") {
+                e.name = "澳元日元"
+            }
+            return e.prd == "EURUSD" || e.prd == "GBPUSD" || e.prd == "AUDUSD" || e.prd == "USDCAD" || e.prd == "USDCHF" || e.prd == "EURGBP" || e.prd == "EURAUD" || e.prd == "EURCHF" || e.prd == "GBPAUD" || e.prd == "GBPJPY" || e.prd == "AUDJPY"
+        })
+        // 外匯交叉盤
+        ForeignExchangeCrossArray = chartData4.filter(e => {
+            if (e.prd == "EURGBP") {
+                e.name = "欧元英镑"
+                e.order = 1
+            } else if (e.prd == "EURAUD") {
+                e.name = "欧元澳元"
+                e.order = 2
+            } else if (e.prd == "EURCHF") {
+                e.name = "欧元瑞朗"
+                e.order = 3
+            } else if (e.prd == "GBPAUD") {
+                e.name = "英镑澳元"
+                e.order = 4
+            } else if (e.prd == "GBPJPY") {
+                e.name = "英镑日元"
+                e.order = 5
+            } else if (e.prd == "AUDJPY") {
+                e.name = "澳元日元"
+                e.order = 6
+            }
+            return e.prd == "EURGBP" || e.prd == "EURAUD" || e.prd == "EURCHF" || e.prd == "GBPAUD" || e.prd == "GBPJPY" || e.prd == "AUDJPY"
+        })
+        ForeignExchangeCrossArray = ForeignExchangeCrossArray.sort((a, b) => a.order - b.order);
+        EnergyArray = chartData4.filter(e => {
+            if (e.prd == "USOil") {
+                e.name = "美国原油"
+            } else if (e.prd == "UKOil") {
+                e.name = "英国原油"
+            } else if (e.prd == "NGAS") {
+                e.name = "天然气"
+            }
+            return e.prd == "USOil" || e.prd == "UKOil" || e.prd == "NGAS"
+        })
+        var chart4 = new Vue({
+            el: '.chart4_content',
+            data: {
+                PreciousMetalsArray: PreciousMetalsArray,
+                IndexArray: IndexArray,
+                ForeignExchangeArray: ForeignExchangeArray,
+                ForeignExchangeCrossArray: ForeignExchangeCrossArray,
+                EnergyArray: EnergyArray,
+                itemData: [],
+                itemEnable: "l1",
+                itemSubEnable: "l31",
+                firstRowLeftEnable: "long",
+                firstRowLeft_Num: 0,
+                firstRowLeft_Left: 0,
+                firstRowLeft_Right: 0,
+                firstRowLeft_Name: "",
+                firstRowLeft_position: [150, 230],
+                firstRowCenterEnable: "long",
+                firstRowCenter_Num: 0,
+                firstRowCenter_Left: 0,
+                firstRowCenter_Right: 0,
+                firstRowCenter_Name: "",
+                firstRowCenter_position: [450, 230],
+                firstRowRightEnable: "long",
+                firstRowRight_Num: 0,
+                firstRowRight_Left: 0,
+                firstRowRight_Right: 0,
+                firstRowRight_Name: "",
+                firstRowRight_position: [750, 230],
+                secondRowLeftEnable: "long",
+                secondRowLeft_Num: 0,
+                secondRowLeft_Left: 0,
+                secondRowLeft_Right: 0,
+                secondRowLeft_Name: "",
+                secondRowLeft_position: [150, 510],
+                secondRowCenterEnable: "long",
+                secondRowCenter_Num: 0,
+                secondRowCenter_Left: 0,
+                secondRowCenter_Right: 0,
+                secondRowCenter_Name: "",
+                secondRowCenter_position: [450, 510],
+                secondRowRightEnable: "long",
+                secondRowRight_Num: 0,
+                secondRowRight_Left: 0,
+                secondRowRight_Right: 0,
+                secondRowRight_Name: "",
+                secondRowRight_position: [750, 510],
+                pieSize: 180,
+            },
+            mounted() {
+                this.draw();
+            },
+            created() {
+                this.init(this.PreciousMetalsArray)
+                if (Com.browserRedirect()) {
+                    // mobile           
+                    var WIDTH = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+                    if (WIDTH == 375) { //6
+                        this.pieSize = 90;
+                        this.irstRowLeft_position = [70, 130];
+                        this.firstRowCenter_position = [225, 130];
+                        this.firstRowRight_position = [70, 310];
+                        this.secondRowLeft_position = [225, 310];
+                        this.secondRowCenter_position = [70, 490];
+                        this.secondRowRight_position = [225, 490];
+                    } else if (WIDTH == 414) { //6+
+                        this.pieSize = 110;
+                        this.irstRowLeft_position = [80, 150];
+                        this.firstRowCenter_position = [250, 150];
+                        this.firstRowRight_position = [80, 350];
+                        this.secondRowLeft_position = [250, 350];
+                        this.secondRowCenter_position = [80, 550];
+                        this.secondRowRight_position = [250, 550];
+                    } else if (WIDTH == 320) { //5
+                        this.pieSize = 70;
+                        this.irstRowLeft_position = [55, 90];
+                        this.firstRowCenter_position = [190, 90];
+                        this.firstRowRight_position = [55, 240];
+                        this.secondRowLeft_position = [190, 240];
+                        this.secondRowCenter_position = [55, 390];
+                        this.secondRowRight_position = [190, 390];
+                    } else {
+                        this.pieSize = 110;
+                        this.irstRowLeft_position = [80, 150];
+                        this.firstRowCenter_position = [250, 150];
+                        this.firstRowRight_position = [80, 350];
+                        this.secondRowLeft_position = [250, 350];
+                        this.secondRowCenter_position = [80, 550];
+                        this.secondRowRight_position = [250, 550];
+                    }
+                } else {
+                    // PC
+                    this.pieSize = 180;
+                    this.irstRowLeft_position = [150, 230];
+                    this.firstRowCenter_position = [450, 230];
+                    this.firstRowRight_position = [750, 230];
+                    this.secondRowLeft_position = [150, 510];
+                    this.secondRowCenter_position = [450, 510];
+                    this.secondRowRight_position = [750, 510];
+                }
+            },
+            methods: {
+                init(arr) {
+                    this.itemData = arr
+                    let len = this.itemData.length
+                    let position = ""
+                    for (let i = 0; i < len; i++) {
+                        if (i === 0) {
+                            position = 'firstRowLeft';
+                        } else if (i === 1) {
+                            position = 'firstRowCenter';
+                        } else if (i === 2) {
+                            position = 'firstRowRight';
+                        } else if (i === 3) {
+                            position = 'secondRowLeft';
+                        } else if (i === 4) {
+                            position = 'secondRowCenter';
+                        } else if (i === 5) {
+                            position = 'secondRowRight';
+                        }
+                        this[`${position}_Right`] = Number(this.itemData[i].vals['1rate'])
+                        this[`${position}_Left`] = Number(this.itemData[i].vals['2rate'])
+                        this[`${position}_Num`] = this[`${position}_Right`] || this[`${position}_Left`]
+                        this[`${position}_Name`] = this.itemData[i].name
+                    }
+                },
+                setInitData() {
+                    this.firstRowLeftEnable = "long"
+                    this.firstRowLeft_Num = 0
+                    this.firstRowLeft_Left = 0
+                    this.firstRowLeft_Right = 0
+                    this.firstRowLeft_Name = ""
+                    this.firstRowCenterEnable = "long"
+                    this.firstRowCenter_Num = 0
+                    this.firstRowCenter_Left = 0
+                    this.firstRowCenter_Right = 0
+                    this.firstRowCenter_Name = ""
+                    this.firstRowRightEnable = "long"
+                    this.firstRowRight_Num = 0
+                    this.firstRowRight_Left = 0
+                    this.firstRowRight_Right = 0
+                    this.firstRowRight_Name = ""
+                    this.secondRowLeftEnable = "long"
+                    this.secondRowLeft_Num = 0
+                    this.secondRowLeft_Left = 0
+                    this.secondRowLeft_Right = 0
+                    this.secondRowLeft_Name = ""
+                    this.secondRowCenterEnable = "long"
+                    this.secondRowCenter_Num = 0
+                    this.secondRowCenter_Left = 0
+                    this.secondRowCenter_Right = 0
+                    this.secondRowCenter_Name = ""
+                    this.secondRowRightEnable = "long"
+                    this.secondRowRight_Num = 0
+                    this.secondRowRight_Left = 0
+                    this.secondRowRight_Right = 0
+                    this.secondRowRight_Name = ""
+                },
+                longShort(key, p) {
+                    // console.log(key, p)
+                    let position = ""
+                    if (p === 0) {
+                        position = 'firstRowLeft';
+                    } else if (p === 1) {
+                        position = 'firstRowCenter';
+                    } else if (p === 2) {
+                        position = 'firstRowRight';
+                    } else if (p === 3) {
+                        position = 'secondRowLeft';
+                    } else if (p === 4) {
+                        position = 'secondRowCenter';
+                    } else if (p === 5) {
+                        position = 'secondRowRight';
+                    }
+                    this[`${position}Enable`] = key
+                    if (key === 'long') {
+                        this[`${position}_Right`] = Number(this.itemData[p].vals['1rate'])
+                        this[`${position}_Left`] = Number(this.itemData[p].vals['2rate'])
+                        this[`${position}_Num`] = this[`${position}_Right`]
+                    } else {
+                        this[`${position}_Right`] = Number(this.itemData[p].vals['2rate'])
+                        this[`${position}_Left`] = Number(this.itemData[p].vals['1rate'])
+                        this[`${position}_Num`] = this[`${position}_Right`]
+                    }
+                    this.draw();
+                },
+                listItem(item) {
+                    this.setInitData()
+                    this.itemEnable = item;
+                    // $(".menu-sub").hide()
+                    if (item === 'l2') {
+                        $(".menu-sub").hide()
+                        this.init(this.IndexArray)
+                        this.itemData = this.IndexArray
+                    } else if (item === 'l3' || item === 'l31') {
+                        $(".menu-sub").show()
+                        if (item === 'l31') {
+                            this.itemSubEnable = item;
+                            $(".menu-sub").hide()
+                        }
+                        if (this.itemSubEnable == 'l32') {
+                            this.init(this.ForeignExchangeCrossArray)
+                            this.itemData = this.ForeignExchangeCrossArray
+                        } else {
+                            this.init(this.ForeignExchangeArray)
+                            this.itemData = this.ForeignExchangeArray
+                        }
+                    } else if (item === 'l32') {
+                        $(".menu-sub").hide()
+                        this.itemSubEnable = item;
+                        this.init(this.ForeignExchangeCrossArray)
+                        this.itemData = this.ForeignExchangeCrossArray
+                    } else if (item === 'l4') {
+                        $(".menu-sub").hide()
+                        this.init(this.EnergyArray)
+                        this.itemData = this.EnergyArray
+                    } else {
+                        $(".menu-sub").hide()
+                        this.init(this.PreciousMetalsArray)
+                        this.itemData = this.PreciousMetalsArray
+                    }
+                    this.draw();
+                },
+                draw() {
+                    $("#chart4").highcharts({
+                        credits: {
+                            enabled: false
+                        },
+                        title: {
+                            text: ''
+                        },
+                        chart: {
+                            backgroundColor: '#222c40',
+                            borderRadius: '30',
+                            borderWidth: 2,
+                            borderColor: "#222c40",
+                            shadow: true,
+                        },
+                        xAxis: {},
+                        labels: {},
+                        series: [{
+                            type: 'pie',
+                            name: this.firstRowLeft_Name,
+                            data: [{
+                                name: '做多',
+                                y: this.firstRowLeft_Right,
+                                color: gradualColor
+                            }, {
+                                name: '做空',
+                                y: this.firstRowLeft_Left,
+                                color: '#505f7b'
+                            }],
+                            center: this.irstRowLeft_position,
+                            size: this.pieSize,
+                            showInLegend: false,
+                            dataLabels: {
+                                enabled: false
+                            },
+                            borderWidth: 0
+                        }, {
+                            type: 'pie',
+                            name: this.firstRowCenter_Name,
+                            data: [{
+                                name: '做多',
+                                y: this.firstRowCenter_Right,
+                                color: gradualColor
+                            }, {
+                                name: '做空',
+                                y: this.firstRowCenter_Left,
+                                color: '#505f7b'
+                            }],
+                            center: this.firstRowCenter_position,
+                            size: this.pieSize,
+                            showInLegend: false,
+                            dataLabels: {
+                                enabled: false
+                            },
+                            borderWidth: 0
+                        }, {
+                            type: 'pie',
+                            name: this.firstRowRight_Name,
+                            data: [{
+                                name: '做多',
+                                y: this.firstRowRight_Right,
+                                color: gradualColor
+                            }, {
+                                name: '做空',
+                                y: this.firstRowRight_Left,
+                                color: '#505f7b'
+                            }],
+                            center: this.firstRowRight_position,
+                            size: this.pieSize,
+                            showInLegend: false,
+                            dataLabels: {
+                                enabled: false
+                            },
+                            borderWidth: 0
+                        }, {
+                            type: 'pie',
+                            name: this.secondRowLeft_Name,
+                            data: [{
+                                name: '做多',
+                                y: this.secondRowLeft_Right,
+                                color: gradualColor
+                            }, {
+                                name: '做空',
+                                y: this.secondRowLeft_Left,
+                                color: '#505f7b'
+                            }],
+                            center: this.secondRowLeft_position,
+                            size: this.pieSize,
+                            showInLegend: false,
+                            dataLabels: {
+                                enabled: false
+                            },
+                            borderWidth: 0
+                        }, {
+                            type: 'pie',
+                            name: this.secondRowCenter_Name,
+                            data: [{
+                                name: '做多',
+                                y: this.secondRowCenter_Right,
+                                color: gradualColor
+                            }, {
+                                name: '做空',
+                                y: this.secondRowCenter_Left,
+                                color: '#505f7b'
+                            }],
+                            center: this.secondRowCenter_position,
+                            size: this.pieSize,
+                            showInLegend: false,
+                            dataLabels: {
+                                enabled: false
+                            },
+                            borderWidth: 0
+                        }, {
+                            type: 'pie',
+                            name: this.secondRowRight_Name,
+                            data: [{
+                                name: '做多',
+                                y: this.secondRowRight_Right,
+                                color: gradualColor
+                            }, {
+                                name: '做空',
+                                y: this.secondRowRight_Left,
+                                color: '#505f7b'
+                            }],
+                            center: this.secondRowRight_position,
+                            size: this.pieSize,
+                            showInLegend: false,
+                            dataLabels: {
+                                enabled: false
+                            },
+                            borderWidth: 0
+                        }]
+                    })
+                },
+            }
+        })
+
+        var chart5Data = [{ name: 'LLS', y: 12076.5, account: '6******8', color: '#4d7bfe' },
+        { name: 'LLS', y: 11083, account: '6******8', color: '#4d7bfe' },
+        { name: 'XAUUSD', y: 10785, account: '8******9', color: '#4d7bfe' },
+        { name: 'LLG', y: 10294.2, account: '8******5', color: '#4d7bfe' },
+        { name: 'XAUUSD', y: 10192, account: '8******9', color: '#4d7bfe' },]
+        var chart5Title = "test"
+        // chart5Data = formatContent(chart5Data, 4, 4); //阵列长度,阵列长度        
+        $("#chart5").highcharts({
+            chart: {
+                type: 'column',
+                renderTo: 'chart5',
+                backgroundColor: '#222c40',
+                borderRadius: '30',
+                borderWidth: 2,
+                borderColor: "#222c40",
+                shadow: true,
+                // marginRight:100,
+                // marginLeft:150,
+                marginTop: 100,
+                // marginBottom:50
+            },
+            title: {
+                text: '',
+            },
+            xAxis: {
+                categories: chart5Data,
+                title: {
+                    text: null
+                },
+                lineColor: '#4d7bfe',
+                lineWidth: 3,
+                labels: {
+                    style: {
+                        color: '#d8d8d8',
+                        fontSize: '20px'
+                    },
+                    formatter: function (e) {
+                        return '<b style="font-size:0.15rem;">' + this.value.account + '</>' + '<br>' + '<b style="font-size:0.18rem;">' + this.value.name + '</b>'
+                    }
+                }
+            },
+            yAxis: {
+                title: {
+                    text: null
+                },
+                // lineColor: '#4d7bfe',
+                // lineWidth: 3,
+                gridLineColor: '#5c6168',
+            },
+            tooltip: {
+                // valueSuffix: ' millions'
+            },
+            plotOptions: {
+                column: {
+                    dataLabels: {
+                        enabled: true,
+                        // connectorColor: '#ffffff',
+                        color: '#ffffff',
+                        // shadow: true, 
+                        style: {
+                            fontSize: '20px'
+                        },
+                        formatter: function (e) {
+                            return '<b style="font-size:0.2rem;">' + Highcharts.numberFormat(this.y, "0", ".", ",") + '</b>'
+                        }
+                    },
+                    // borderWidth: 0,
+                    // borderRadius: 10,
+                    // pointWidth: 20,                   
+                },
+            },
+            legend: {
+                enabled: false
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: chart5Title,
+                data: chart5Data,
+                borderColor: 'none',
+            }]
+        });
+        var chart6 = new Vue({
+            el: '.chart6_content',
+            data: {
+                chartData6: [{ name: 'XAUUSD', y: 0.571 },
+                { name: 'TECH100', y: 0.136 },
+                { name: 'USOil', y: 0.046 },
+                { name: 'EURUSD', y: 0.0325 },
+                { name: 'USDJPY', y: 0.0314 },
+                { name: 'CHINA300', y: 0.027 },
+                { name: 'HK50', y: 0.0258 },],
+                title: '持仓商品占比',
+                drawData: [],
+                dataLeft: [],
+                percent: 0,
+                nowKey: 0
+            },
+            mounted() {
+                this.draw();
+            },
+            created() {
+                // this.chartData6 = formatContent(this.dataArrey6, 2, 2);
+                this.drawData = this.chartData6.filter(function (item, index, arr) {
+                    return index == 0
+                })
+                this.dataLeft = 100 - this.drawData[0].y
+                this.drawData.push({ name: '', y: this.dataLeft })
+                this.percent = this.drawData[0].y
+            },
+            methods: {
+                chart6(name, key) {
+                    this.nowKey = key
+                    this.drawData = this.chartData6.filter(e => {
+                        return e.name == name
+                    })
+                    this.dataLeft = 100 - this.drawData[0].y
+                    this.drawData.push({ name: '', y: this.dataLeft })
+                    this.draw();
+                    this.percent = this.drawData[0].y
+                    chart6.setTitle({
+                        text: '<b style="font-size:0.2rem; color:#ffffff ">' + this.title + '</b>' + '<br>'
+                            + '<b style="font-size:0.6rem; color:#ffffff ">' + this.percent + ' %' + '</b><br>'
+                            + '<b style="color:#ffffff">' + name + '</b>'
+                    })
+                },
+                draw() {
+                    $("#chart6").highcharts({
+                        credits: {
+                            enabled: false
+                        },
+                        title: {
+                            floating: true,
+                            // y: 50,
+                            // useHTML: true,
+                            text: '<b style="font-size:0.2rem; color:#ffffff ">' + this.title + '</b>' + '<br>'
+                                + '<b style="font-size:0.6rem; color:#ffffff ">' + this.percent + ' %' + '</b><br>'
+                                + '<b style="color:#ffffff">' + this.drawData[0].name + '</b>',
+                            style: {
+                                color: '#4d7bfe',
+                                fontWeight: 'bold',
+                                fontSize: '16px'
+                            }
+                        },
+                        chart: {
+                            type: 'pie',
+                            renderTo: 'chart6',
+                            // defaultSeriesType: 'bar',
+                            backgroundColor: '#222c40',
+                            borderRadius: '30',
+                            borderWidth: 2,
+                            borderColor: "#222c40",
+                            reflow: false,
+                            shadow: true,
+                            marginTop: '40',
+                            marginBottom: '160'
+
+                        },
+                        tooltip: {
+                            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                        },
+                        accessibility: {
+                            point: {
+                                valueSuffix: '%'
+                            }
+                        },
+                        plotOptions: {
+                            pie: {
+                                allowPointSelect: true,
+                                cursor: 'pointer',
+                                shadow: true,
+                                dataLabels: {
+                                    enabled: false,
+                                },
+                            }
+                        },
+                        series: [{
+                            name: this.title,
+                            data: this.drawData,
+                            borderColor: 'none',
+                            size: '95%',
+                            innerSize: '60%',
+                            enableMouseTracking: false, //禁止點擊圖表                                           
+                            colors: [gradualColor, "#505f7b"],
+                        }],
+                    }, function (c) {
+                        var centerY = c.series[0].center[1],
+                            titleHeight = parseInt(c.title.styles.fontSize);
+                        c.setTitle({
+                            // 中心
+                            y: centerY
+                        });
+                        chart6 = c;
+                    });
+                }
+            }
+        });
+        var chart7 = new Vue({
+            el: '.chart7_content',
+            data: {
+                chartData7: [{ name: 'LLG', y: 242393.18, },
+                { name: 'XAUUSD', y: 53025.79, },
+                { name: 'USDJPY', y: 35158.02, },
+                { name: 'XAGUSD', y: 31709.65, },
+                { name: 'LLS', y: 16731.35, },
+                { name: 'TECH100', y: 7255.45, },
+                { name: 'DJ30', y: 3866.8, },
+                { name: 'USDINDEX', y: 3702.46, },
+                { name: 'PLT', y: 3148.7, }],
+                title: "持仓产品盈利",
+                drawData: [],
+                dataLeft: [],
+                percent: 0,
+                nowKey: 0
+                // chart7Color:gradualColor                                
+            },
+            mounted() {
+                this.draw();
+            },
+            created() {
+                // this.chartData7 = formatContent(this.dataArrey7, 2, 2);
+                this.drawData = this.chartData7.filter(function (item, index, arr) {
+                    return index == 0
+                })
+                this.drawData[0].color = gradualColor
+            },
+            methods: {
+                chart7(name, key) {
+                    this.nowKey = key
+                    this.drawData = this.chartData7.filter(e => {
+                        e.color = "#505f7b"
+                        return e.name == name
+                    })
+                    this.drawData[0].color = gradualColor
+                    this.draw();
+                    chart7.setTitle({
+                        text: '<b style="font-size:0.5rem; color:#ffffff ">' + Highcharts.numberFormat(this.drawData[0].y, "2", ".", ",") + '</b>',
+                    })
+                },
+                draw() {
+                    $("#chart7").highcharts({
+                        credits: {
+                            enabled: false
+                        },
+                        title: {
+                            floating: true,
+                            y: 100,
+                            // useHTML: true,
+                            text: '<b style="font-size:0.5rem; color:#ffffff ">' + Highcharts.numberFormat(this.drawData[0].y, "2", ".", ",") + '</b>',
+                            style: {
+                                color: '#4d7bfe',
+                                fontWeight: 'bold',
+                                fontSize: '16px',
+                            }
+                        },
+                        chart: {
+                            type: 'column',
+                            renderTo: 'chart7',
+                            // defaultSeriesType: 'bar',
+                            backgroundColor: '#222c40',
+                            borderRadius: '30',
+                            borderWidth: 2,
+                            borderColor: "#222c40",
+                            reflow: false,
+                            shadow: true,
+                            marginRight: 30,
+                            marginTop: '80',
+                            marginBottom: '170'
+                        },
+                        xAxis: {
+                            visible: false,
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: ''
+                            },
+                            gridLineColor: '#5c6168',
+                            minorGridLineDashStyle: 'dash',
+                            minorGridLineColor: '#5c6168',
+                            minorTickInterval: 25000,
+                        },
+                        legend: {
+                            enabled: false
+                        },
+                        tooltip: {
+                            pointFormat: '{series.name}: <b>{point.y:.2f}</b>',
+                        },
+                        accessibility: {
+                            point: {
+                                valueSuffix: '%'
+                            }
+                        },
+                        plotOptions: {
+                            column: {
+                                borderWidth: 2,
+                                colorByPoint: true,
+                            }
+                        },
+                        series: [{
+                            name: this.title,
+                            data: this.chartData7,
+                            borderColor: 'none',
+                            states: {
+                                hover: {
+                                    color: '#ffffff',
+                                    // borderColor: 'gray'
+                                }
+                            },
+                            colors: ['#505f7b'],
+                        }],
+                    }, function (c) {
+                        chart7 = c;
+                    });
+                }
+            }
+        });
+        // })
+        // 将后台 Data 转 Json
+        function formatContent(content, amount, arrayLength) {
+            // console.log("OK", content, amount, arrayLength)
+            var newDataArray = []
+            var dataArray = []
+            var chartData = []
+            var dataLast = []
+            dataArray = content.content.substring(3, content.content.length - 4).split(",")
+            for (var i = 0; i < dataArray.length; i++) {
+                if (dataArray[i].substring(0, 1) == "[") {
+                    dataArray[i] = dataArray[i].split("[")
+                    for (var j = 1; j <= amount - 1; j++) {
+                        dataLast = dataArray[i + j].replace("]", "")
+                        dataArray[i].push(dataLast)
+                    }
+                }
+            }
+            for (var k = 0; k < dataArray.length / arrayLength; k++) {
+                newDataArray.push(dataArray[k * arrayLength])
+            }
+            // array to object
+            if (newDataArray[0].length >= 5) {
+                newDataArray.forEach((item, index, arr) => {
+                    // 渐层色
+                    var color = {}
+                    if (newDataArray[index][4].length == 14) {
+                        var x = newDataArray[index][4].substr(0, 7)
+                        var y = newDataArray[index][4].substr(7, 7)
+                        color = {
+                            linearGradient: {
+                                x1: 0,
+                                x2: 0,
+                                y1: 0,
+                                y2: 1
+                            },
+                            stops: [
+                                [0, x],
+                                [1, y]
+                            ]
+                        }
+                    } else {
+                        color = newDataArray[index][4]
+                    }
+                    // 文案3
+                    if (newDataArray[0].length == 9) {
+                        var newArray = []
+                        for (var i = 5; i < 9; i++) {
+                            newArray.push(parseFloat(newDataArray[index][i]))
+                        }
+                        newObj = {
+                            name: newDataArray[index][1],
+                            year: newDataArray[index][2],
+                            week: newDataArray[index][3],
+                            color: color,
+                            data: newArray,
+                        }
+                    } else {
+                        newObj = {
+                            name: newDataArray[index][1],
+                            y: parseFloat(newDataArray[index][2]),
+                            account: newDataArray[index][3],
+                            color: color
+                        }
+                    }
+
+                    chartData.push(newObj)
+                })
+            } else {
+                newDataArray.forEach((item, index, arr) => {
+                    newObj = {
+                        name: newDataArray[index][1],
+                        y: parseFloat(newDataArray[index][2])
+                    }
+                    chartData.push(newObj)
+                })
+            }
+            return chartData
+        }
+        $(document).on('click', function () {
+            $("input[name='gender1']").each(function () {
+                if (this.checked) {
+                    // $(this).parent().css('opacity','1')
+                    $(this).parent().css('background-image', 'linear-gradient(to right,#5381fe 0%,#1b3b94 100%)').css('color', '#fff')
+                } else {
+                    // $(this).parent().css('opacity','0.5')
+                    $(this).parent().css('background', '#bfcffb').css('color', '#1b3b94')
+                }
+            });
+            $("input[name='gender6']").each(function () {
+                if (this.checked) {
+                    $(this).parent().css('background-image', 'linear-gradient(to right,#5381fe 0%,#1b3b94 100%)').css('color', '#fff')
+                } else {
+                    $(this).parent().css('background', '#bfcffb').css('color', '#1b3b94')
+                }
+            });
+            $("input[name='gender7']").each(function () {
+                if (this.checked) {
+                    $(this).parent().css('background-image', 'linear-gradient(to right,#5381fe 0%,#1b3b94 100%)').css('color', '#fff')
+                } else {
+                    $(this).parent().css('background', '#bfcffb').css('color', '#1b3b94')
+                }
+            });
+            $("input[name='gender3']").each(function () {
+                if (this.checked) {
+                    $(this).parent().css('background-image', 'linear-gradient(to right,#5381fe 0%,#1b3b94 100%)').css('color', '#fff')
+                } else {
+                    $(this).parent().css('background', 'rgba(0,0,0,0)')
+                }
+            });
+        });
+        $(".icoMsg1").click(function () {
+            if ($(".msgBox1").is(":visible")) {
+                $(".icoMsg1>img").attr("src", "Data-analysis/icon.png")
+            } else {
+                $(".icoMsg1>img").attr("src", "Data-analysis/icon_hover.png")
+            }
+            $('.msgBox1').animate({ width: 'toggle' }, 350);
+        })
+        $(".icoMsg1").hover(function () {
+            if ($(".msgBox1").is(":visible")) {
+                $(".icoMsg1>img").attr("src", "Data-analysis/icon.png")
+            } else {
+                $(".icoMsg1>img").attr("src", "Data-analysis/icon_hover.png")
+            }
+            $('.msgBox1').animate({ width: 'toggle' }, 350);
+        })
+        $(".icoMsg2").click(function () {
+            if ($(".msgBox2").is(":visible")) {
+                $(".icoMsg2>img").attr("src", "Data-analysis/icon.png")
+            } else {
+                $(".icoMsg2>img").attr("src", "Data-analysis/icon_hover.png")
+            }
+            $('.msgBox2').animate({ width: 'toggle' }, 350);
+        })
+        $(".icoMsg2").hover(function () {
+            if ($(".msgBox2").is(":visible")) {
+                $(".icoMsg2>img").attr("src", "Data-analysis/icon.png")
+            } else {
+                $(".icoMsg2>img").attr("src", "Data-analysis/icon_hover.png")
+            }
+            $('.msgBox2').animate({ width: 'toggle' }, 350);
+        })
+        $(".icoMsg3").click(function () {
+            if ($(".msgBox3").is(":visible")) {
+                $(".icoMsg3>img").attr("src", "Data-analysis/icon.png")
+            } else {
+                $(".icoMsg3>img").attr("src", "Data-analysis/icon_hover.png")
+            }
+            $('.msgBox3').animate({ width: 'toggle' }, 350);
+        })
+        $(".icoMsg3").hover(function () {
+            if ($(".msgBox3").is(":visible")) {
+                $(".icoMsg3>img").attr("src", "Data-analysis/icon.png")
+            } else {
+                $(".icoMsg3>img").attr("src", "Data-analysis/icon_hover.png")
+            }
+            $('.msgBox3').animate({ width: 'toggle' }, 350);
+        })
+    })
+</script>

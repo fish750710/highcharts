@@ -1,0 +1,1407 @@
+body {
+  max-width: 1920px;
+  min-width: 1200px;
+  margin: 0 auto;
+  font-size: 14px;
+  font-family: "PingFang SC", "Hiragino Sans GB", arial, "Microsoft Yahei", sans-serif;
+  background-color: #fff;
+  color: #fff;
+}
+
+.highcharts-title {
+  fill: #e0e0e3;
+  text-transform: uppercase;
+  font-size: 20px;
+}
+
+.wrap .banner {
+  position: relative;
+  background: url(./banner.jpg) no-repeat center;
+  width: 100%;
+  height: 220px;
+}
+
+.wrap .banner .banner_content {
+  color: #fff;
+  position: absolute;
+  top: 50px;
+  left: 18%;
+}
+
+.wrap .banner .banner_content h1 {
+  font-weight: normal;
+  font-size: 46px;
+}
+
+.wrap .banner .banner_content p {
+  font-size: 24px;
+}
+
+.wrap .content {
+  background: url(./bg.jpg) no-repeat center;
+  width: 100%;
+  height: 3100px;
+  position: relative;
+  z-index: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: start;
+}
+
+.wrap .content::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: url(./bg_cover.png) top;
+  z-index: 0;
+  opacity: 0.2;
+}
+
+.wrap .content .container {
+  width: 940px;
+  margin-top: 40px;
+}
+
+.wrap .content .container .line {
+  width: 74px;
+  height: 6px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 3px;
+  border-radius: 10px;
+  background-image: -webkit-gradient(linear, left top, right top, from(#84ffcf), to(#4d7bfe));
+  background-image: linear-gradient(to right, #84ffcf 0%, #4d7bfe 100%);
+  margin-bottom: 12px;
+  position: absolute;
+  left: 27px;
+  top: 52px;
+  z-index: 5;
+}
+
+.wrap .content .container h3 {
+  position: absolute;
+  left: 27px;
+  top: 15px;
+  font-size: 26px;
+  color: #4d7bfe;
+  z-index: 5;
+}
+
+.wrap .content .container .update {
+  width: 108px;
+  text-align: center;
+  font-size: 15px;
+  color: #4d7bfe;
+  border-bottom: solid 1px #4d7bfe;
+}
+
+.wrap .content .container .title {
+  width: 610px;
+  height: 42px;
+  font-weight: 600;
+  font-size: 30px;
+  color: #efefef;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.wrap .content .container .title .msg {
+  position: absolute;
+  left: 200px;
+  top: -10px;
+  z-index: 6;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 27.5px;
+  background-image: -webkit-gradient(linear, left top, right top, from(#5381fe), to(#1b3b94));
+  background-image: linear-gradient(to right, #5381fe 0%, #1b3b94 100%);
+}
+
+.wrap .content .container .title .msg img {
+  z-index: 10;
+}
+
+.wrap .content .container .title .msg img:hover {
+  cursor: pointer;
+}
+
+.wrap .content .container .title .msg .msgShow {
+  position: absolute;
+  left: 0px;
+  top: 0;
+  z-index: 5;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: 14px;
+  width: 4.6rem;
+  height: 42px;
+  border-radius: 27.5px;
+  padding: 6px 6px 6px 55px;
+  background-image: -webkit-gradient(linear, left top, right top, from(#5381fe), to(#1b3b94));
+  background-image: linear-gradient(to right, #5381fe 0%, #1b3b94 100%);
+}
+
+.wrap .content .container .s_charts {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.wrap .content .container .footer {
+  margin-top: 80px;
+  text-align: center;
+  color: #7890bc;
+  font-size: 12px;
+}
+
+.wrap .content .container .section1 #chart1,
+.wrap .content .container .section1 #chart2 {
+  z-index: 2;
+  width: 460px;
+  height: 515px;
+}
+
+.wrap .content .container .section1 #chart3,
+.wrap .content .container .section1 #chart5 {
+  z-index: 2;
+  width: 460px;
+  height: 515px;
+}
+
+.wrap .content .container .section1 .chart1_content,
+.wrap .content .container .section1 .chart2_content {
+  position: relative;
+}
+
+.wrap .content .container .section1 .chart3_content {
+  position: relative;
+}
+
+.wrap .content .container .section1 .chart3_content .chart_box {
+  position: absolute;
+  left: 0;
+  top: 64px;
+  font-size: 30px;
+  color: #ffffff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+  -ms-flex-pack: space-evenly;
+  justify-content: space-evenly;
+  width: 460px;
+}
+
+.wrap .content .container .section1 .chart3_content .chart_box p {
+  width: 30px;
+  text-align: right;
+}
+
+.wrap .content .container .section1 .chart3_content .chart_item {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 460px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.wrap .content .container .section1 .chart3_content .chart_item .box {
+  width: 435px;
+  height: 73px;
+  z-index: 5;
+  position: absolute;
+  left: 20px;
+  bottom: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.wrap .content .container .section1 .chart3_content .chart_item .box .box_bg2 {
+  width: 130px;
+  height: 28px;
+  font-size: 14px;
+  border-radius: 12px;
+  -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin: 10px 10px 0 0;
+}
+
+.wrap .content .container .section1 .chart3_content .chart_item .box .box_bg2 input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  border-radius: 0.15rem;
+  background-color: #1f3e99;
+  border: 0px solid #fff;
+  background-color: #ffffff;
+  margin-left: 4px;
+}
+
+.wrap .content .container .section1 .chart3_content .chart_item .box .box_bg2 label {
+  cursor: pointer;
+  margin-left: 4px;
+  width: 100px;
+  line-height: 28px;
+}
+
+.wrap .content .container .section1 .chart3_content .chart_item .box .box_bg2 input[type="radio"]:checked {
+  width: 20px;
+  height: 20px;
+  border: 0;
+  color: #fff;
+  border-radius: 0.15rem;
+  background-color: #4d7bfe;
+  border: 4px solid #fff;
+}
+
+.wrap .content .container .section1 .chart3_content .chart_item .box .but1_color {
+  border: solid 2px #4d7bfe;
+}
+
+.wrap .content .container .section1 .chart3_content .chart_item .box .but2_color {
+  border: solid 2px #4dd8fe;
+}
+
+.wrap .content .container .section1 .chart3_content .chart_item .box .but3_color {
+  border: solid 2px #a5dea7;
+}
+
+.wrap .content .container .section1 .chart3_content .chart_item .box .but4_color {
+  border: solid 2px #a888f4;
+}
+
+.wrap .content .container .section1 .chart3_content .chart_item .box .but1_color_checked {
+  background-image: -webkit-gradient(linear, left top, right top, from(#5381fe), to(#1b3b94));
+  background-image: linear-gradient(to right, #5381fe 0%, #1b3b94 100%);
+}
+
+.wrap .content .container .section1 .chart3_content .chart_item .box .but2_color_checked {
+  background-image: -webkit-gradient(linear, left top, right top, from(#90d2fa), to(#1b3b94));
+  background-image: linear-gradient(to right, #90d2fa 0%, #1b3b94 100%);
+}
+
+.wrap .content .container .section1 .chart3_content .chart_item .box .but3_color_checked {
+  background-image: -webkit-gradient(linear, left top, right top, from(#60dfc3), to(#1b3b94));
+  background-image: linear-gradient(to right, #60dfc3 0%, #1b3b94 100%);
+}
+
+.wrap .content .container .section1 .chart3_content .chart_item .box .but4_color_checked {
+  background-image: -webkit-gradient(linear, left top, right top, from(#af8ddf), to(#1b3b94));
+  background-image: linear-gradient(to right, #af8ddf 0%, #1b3b94 100%);
+}
+
+.wrap .content .container .section1 .chart2_content #chart2Box {
+  position: absolute;
+  left: 10px;
+  bottom: 20px;
+  width: 440px;
+  height: 110px;
+}
+
+.wrap .content .container .section1 .chart2_content #chart2Box .box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.wrap .content .container .section1 .chart2_content #chart2Box .box .box_bg {
+  position: relative;
+  width: 105px;
+  height: 110px;
+  border-radius: 6px;
+  background-color: #505f7b;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.wrap .content .container .section1 .chart2_content #chart2Box .box .box_bg .name {
+  padding-top: 10px;
+  font-size: 24px;
+}
+
+.wrap .content .container .section1 .chart2_content #chart2Box .box .box_bg .num {
+  font-size: 46px;
+}
+
+.wrap .content .container .section1 .chart2_content #chart2Box .box .li1_color::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -20px;
+  width: 105px;
+  height: 15px;
+  border-radius: 6px;
+  background-image: -webkit-gradient(linear, left top, right top, from(#5381fe), to(#1b3b94));
+  background-image: linear-gradient(to right, #5381fe 0%, #1b3b94 100%);
+}
+
+.wrap .content .container .section1 .chart2_content #chart2Box .box .li2_color::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -20px;
+  width: 105px;
+  height: 15px;
+  border-radius: 6px;
+  background-image: -webkit-gradient(linear, left top, right top, from(#90d2fa), to(#1b3b94));
+  background-image: linear-gradient(to right, #90d2fa 0%, #1b3b94 100%);
+}
+
+.wrap .content .container .section1 .chart2_content #chart2Box .box .li3_color::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -20px;
+  width: 105px;
+  height: 15px;
+  border-radius: 6px;
+  background-image: -webkit-gradient(linear, left top, right top, from(#60dfc3), to(#1b3b94));
+  background-image: linear-gradient(to right, #60dfc3 0%, #1b3b94 100%);
+}
+
+.wrap .content .container .section1 .chart2_content #chart2Box .box .li4_color::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -20px;
+  width: 105px;
+  height: 15px;
+  border-radius: 6px;
+  background-image: -webkit-gradient(linear, left top, right top, from(#af8ddf), to(#1b3b94));
+  background-image: linear-gradient(to right, #af8ddf 0%, #1b3b94 100%);
+}
+
+.wrap .content .container .section1 .chart5_content {
+  position: relative;
+}
+
+.wrap .content .container .section1 .chart5_content .s3-box {
+  width: 460px;
+}
+
+.wrap .content .container .section2 {
+  position: relative;
+  margin-top: 85px;
+}
+
+.wrap .content .container .section2 #chart4 {
+  margin-top: 32px;
+  z-index: 2;
+  width: 940px;
+  height: 658px;
+}
+
+.wrap .content .container .section2 #chart4Box .classRelative {
+  position: relative;
+}
+
+.wrap .content .container .section2 #chart4Box .menu-sub {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 70px;
+  width: 200px;
+  height: 100px;
+  z-index: 99;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background: #2b3349;
+}
+
+.wrap .content .container .section2 #chart4Box .menu-sub span {
+  width: 100%;
+  height: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  opacity: 0.5;
+}
+
+.wrap .content .container .section2 #chart4Box .menu-sub .subBg {
+  opacity: 1;
+  background: #1b3b94;
+}
+
+.wrap .content .container .section2 #chart4Box .bookmark {
+  position: absolute;
+  width: 100%;
+  height: 50px;
+  top: 120px;
+  left: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.wrap .content .container .section2 #chart4Box .bookmark ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 900px;
+  -webkit-box-pack: space-evenly;
+  -ms-flex-pack: space-evenly;
+  justify-content: space-evenly;
+}
+
+.wrap .content .container .section2 #chart4Box .bookmark ul li {
+  width: 200px;
+  height: 50px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: 24px;
+  border: 1px solid #4d7bfe;
+  background: #2b3349;
+  color: #4d7bfe;
+}
+
+.wrap .content .container .section2 #chart4Box .bookmark ul .itemEnableStatus {
+  background-image: -webkit-gradient(linear, left top, right top, from(#5381fe), to(#1b3b94));
+  background-image: linear-gradient(to right, #5381fe 0%, #1b3b94 100%);
+  color: #ffffff;
+  position: relative;
+}
+
+.wrap .content .container .section2 #chart4Box .bookmark ul .itemEnableStatus::after {
+  content: "";
+  position: absolute;
+  left: -3px;
+  bottom: -13px;
+  width: 206px;
+  height: 6px;
+  background-image: -webkit-gradient(linear, left top, right top, from(#84ffcf), to(#4d7bfe));
+  background-image: linear-gradient(to right, #84ffcf 0%, #4d7bfe 100%);
+  border-radius: 30px;
+}
+
+.wrap .content .container .section2 #chart4Box .num {
+  font-size: 50px;
+  font-weight: 600;
+  line-height: 50px;
+  padding-top: 4px;
+}
+
+.wrap .content .container .section2 #chart4Box .name {
+  font-size: 26px;
+  font-weight: 300;
+}
+
+.wrap .content .container .section2 #chart4Box .option {
+  font-size: 20px;
+  color: #4d7bfe;
+  font-weight: 600;
+}
+
+.wrap .content .container .section2 #chart4Box .first_left,
+.wrap .content .container .section2 #chart4Box .first_center,
+.wrap .content .container .section2 #chart4Box .first_right,
+.wrap .content .container .section2 #chart4Box .second_Left,
+.wrap .content .container .section2 #chart4Box .second_Center,
+.wrap .content .container .section2 #chart4Box .second_Right {
+  position: absolute;
+  left: 68px;
+  top: 260px;
+  width: 200px;
+  height: 120px;
+}
+
+.wrap .content .container .section2 #chart4Box .first_left .long_short,
+.wrap .content .container .section2 #chart4Box .first_center .long_short,
+.wrap .content .container .section2 #chart4Box .first_right .long_short,
+.wrap .content .container .section2 #chart4Box .second_Left .long_short,
+.wrap .content .container .section2 #chart4Box .second_Center .long_short,
+.wrap .content .container .section2 #chart4Box .second_Right .long_short {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  position: absolute;
+  left: 31px;
+  top: -42px;
+  width: 160px;
+  height: 30px;
+}
+
+.wrap .content .container .section2 #chart4Box .first_left .long_short .long,
+.wrap .content .container .section2 #chart4Box .first_left .long_short .short,
+.wrap .content .container .section2 #chart4Box .first_center .long_short .long,
+.wrap .content .container .section2 #chart4Box .first_center .long_short .short,
+.wrap .content .container .section2 #chart4Box .first_right .long_short .long,
+.wrap .content .container .section2 #chart4Box .first_right .long_short .short,
+.wrap .content .container .section2 #chart4Box .second_Left .long_short .long,
+.wrap .content .container .section2 #chart4Box .second_Left .long_short .short,
+.wrap .content .container .section2 #chart4Box .second_Center .long_short .long,
+.wrap .content .container .section2 #chart4Box .second_Center .long_short .short,
+.wrap .content .container .section2 #chart4Box .second_Right .long_short .long,
+.wrap .content .container .section2 #chart4Box .second_Right .long_short .short {
+  width: 70px;
+  height: 28px;
+  border: 1px solid #4d7bfe;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  color: #4d7bfe;
+  background: rgba(0, 0, 0, 0);
+}
+
+.wrap .content .container .section2 #chart4Box .first_left .long_short .short,
+.wrap .content .container .section2 #chart4Box .first_center .long_short .short,
+.wrap .content .container .section2 #chart4Box .first_right .long_short .short,
+.wrap .content .container .section2 #chart4Box .second_Left .long_short .short,
+.wrap .content .container .section2 #chart4Box .second_Center .long_short .short,
+.wrap .content .container .section2 #chart4Box .second_Right .long_short .short {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.wrap .content .container .section2 #chart4Box .first_left .long_short .long,
+.wrap .content .container .section2 #chart4Box .first_center .long_short .long,
+.wrap .content .container .section2 #chart4Box .first_right .long_short .long,
+.wrap .content .container .section2 #chart4Box .second_Left .long_short .long,
+.wrap .content .container .section2 #chart4Box .second_Center .long_short .long,
+.wrap .content .container .section2 #chart4Box .second_Right .long_short .long {
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.wrap .content .container .section2 #chart4Box .first_left .long_short .shortEnable,
+.wrap .content .container .section2 #chart4Box .first_center .long_short .shortEnable,
+.wrap .content .container .section2 #chart4Box .first_right .long_short .shortEnable,
+.wrap .content .container .section2 #chart4Box .second_Left .long_short .shortEnable,
+.wrap .content .container .section2 #chart4Box .second_Center .long_short .shortEnable,
+.wrap .content .container .section2 #chart4Box .second_Right .long_short .shortEnable {
+  background: rgba(0, 0, 0, 0);
+  color: #ffffff;
+  background-image: -webkit-gradient(linear, left top, right top, from(#5381fe), to(#1b3b94));
+  background-image: linear-gradient(to right, #5381fe 0%, #1b3b94 100%);
+}
+
+.wrap .content .container .section2 #chart4Box .first_left .long_short .longEnable,
+.wrap .content .container .section2 #chart4Box .first_center .long_short .longEnable,
+.wrap .content .container .section2 #chart4Box .first_right .long_short .longEnable,
+.wrap .content .container .section2 #chart4Box .second_Left .long_short .longEnable,
+.wrap .content .container .section2 #chart4Box .second_Center .long_short .longEnable,
+.wrap .content .container .section2 #chart4Box .second_Right .long_short .longEnable {
+  background: rgba(0, 0, 0, 0);
+  color: #ffffff;
+  background-image: -webkit-gradient(linear, right top, left top, from(#5381fe), to(#1b3b94));
+  background-image: linear-gradient(to left, #5381fe 0%, #1b3b94 100%);
+}
+
+.wrap .content .container .section2 #chart4Box .first_center {
+  left: 369px;
+}
+
+.wrap .content .container .section2 #chart4Box .first_right {
+  left: 669px;
+}
+
+.wrap .content .container .section2 #chart4Box .second_Left {
+  top: 540px;
+}
+
+.wrap .content .container .section2 #chart4Box .second_Center {
+  top: 540px;
+  left: 369px;
+}
+
+.wrap .content .container .section2 #chart4Box .second_Right {
+  top: 540px;
+  left: 669px;
+}
+
+.wrap .content .container .section3 {
+  margin-top: 100px;
+}
+
+.wrap .content .container .section3 #chart5 {
+  margin-top: 32px;
+  z-index: 2;
+  width: 460px;
+  height: 566px;
+}
+
+.wrap .content .container .section4 {
+  margin-top: 100px;
+}
+
+.wrap .content .container .section4 #chart6,
+.wrap .content .container .section4 #chart7 {
+  z-index: 2;
+  width: 460px;
+  height: 515px;
+}
+
+.wrap .content .container .chart1_content,
+.wrap .content .container .chart6_content,
+.wrap .content .container .chart7_content {
+  position: relative;
+}
+
+.wrap .content .container .chart1_content .box,
+.wrap .content .container .chart6_content .box,
+.wrap .content .container .chart7_content .box {
+  width: 435px;
+  height: 100px;
+  z-index: 5;
+  position: absolute;
+  left: 20px;
+  bottom: 36px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.wrap .content .container .chart1_content .box .box_bg,
+.wrap .content .container .chart6_content .box .box_bg,
+.wrap .content .container .chart7_content .box .box_bg {
+  width: 130px;
+  height: 28px;
+  font-size: 14px;
+  border-radius: 12px;
+  -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+  background-image: -webkit-gradient(linear, left top, right top, from(#5381fe), to(#1b3b94));
+  background-image: linear-gradient(to right, #5381fe 0%, #1b3b94 100%);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin: 10px 15px 0 0;
+}
+
+.wrap .content .container .chart1_content .box .box_bg input[type="radio"],
+.wrap .content .container .chart6_content .box .box_bg input[type="radio"],
+.wrap .content .container .chart7_content .box .box_bg input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  border-radius: 0.15rem;
+  background-color: #1f3e99;
+  border: 0px solid #fff;
+  background-color: #ffffff;
+  margin-left: 4px;
+}
+
+.wrap .content .container .chart1_content .box .box_bg label,
+.wrap .content .container .chart6_content .box .box_bg label,
+.wrap .content .container .chart7_content .box .box_bg label {
+  cursor: pointer;
+  margin-left: 4px;
+  width: 100px;
+  line-height: 28px;
+}
+
+.wrap .content .container .chart1_content .box .box_bg input[type="radio"]:checked,
+.wrap .content .container .chart6_content .box .box_bg input[type="radio"]:checked,
+.wrap .content .container .chart7_content .box .box_bg input[type="radio"]:checked {
+  width: 20px;
+  height: 20px;
+  border: 0;
+  border-radius: 0.15rem;
+  background-color: #4d7bfe;
+  border: 4px solid #fff;
+}
+
+@media screen and (max-width: 768px) {
+  #Header {
+    display: none;
+  }
+  .wrap .banner {
+    position: relative;
+    background: url(./banner_m.jpg) no-repeat 0 0/100% auto;
+    width: 7.5rem;
+    height: 3.2rem;
+  }
+  .wrap .banner .banner_content {
+    color: #fff;
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+  }
+  .wrap .banner .banner_content h1 {
+    font-weight: normal;
+    font-size: 0.72rem;
+  }
+  .wrap .banner .banner_content p {
+    font-size: 0.3rem;
+  }
+  .wrap .content {
+    background: url(./bg_m.jpg) no-repeat 0 0/100% 100%;
+    width: 7.5rem;
+    height: 75rem;
+    position: relative;
+    z-index: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: start;
+  }
+  .wrap .content::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: url(./bg_cover.png) top;
+    z-index: 0;
+    opacity: 0.2;
+  }
+  .wrap .content .container {
+    width: 90%;
+    margin: 0.4rem 0.1rem;
+    position: relative;
+  }
+  .wrap .content .container .line {
+    width: 1rem;
+    height: 0.06rem;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+    border-radius: 10px;
+    background-image: -webkit-gradient(linear, left top, right top, from(#84ffcf), to(#4d7bfe));
+    background-image: linear-gradient(to right, #84ffcf 0%, #4d7bfe 100%);
+    margin-bottom: 0;
+    position: absolute;
+    left: 0.5rem;
+    top: 0.77rem;
+  }
+  .wrap .content .container h3 {
+    position: absolute;
+    left: 0.5rem;
+    top: 0.3rem;
+    font-size: 0.32rem;
+    color: #4d7bfe;
+  }
+  .wrap .content .container .update {
+    width: 2rem;
+    text-align: center;
+    font-size: 0.24rem;
+    color: #4d7bfe;
+    border-bottom: solid 1px #4d7bfe;
+  }
+  .wrap .content .container .title {
+    width: 3.2rem;
+    height: 0.6rem;
+    font-weight: 600;
+    font-size: 0.44rem;
+    color: #efefef;
+    position: relative;
+  }
+  .wrap .content .container .title .msg {
+    position: absolute;
+    left: 2.8rem;
+    top: 0rem;
+    z-index: 6;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 0.54rem;
+    height: 0.54rem;
+    border-radius: 27.5px;
+    background-image: -webkit-gradient(linear, left top, right top, from(#5381fe), to(#1b3b94));
+    background-image: linear-gradient(to right, #5381fe 0%, #1b3b94 100%);
+  }
+  .wrap .content .container .title .msg img {
+    z-index: 10;
+    width: 0.35rem;
+    height: 0.35rem;
+  }
+  .wrap .content .container .title .msg img:hover {
+    cursor: pointer;
+  }
+  .wrap .content .container .title .msg .msgShow {
+    position: absolute;
+    left: 0px;
+    top: 0;
+    z-index: 5;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    font-size: 14px;
+    width: 3.5rem;
+    height: 1.4rem;
+    border-radius: 10px;
+    padding: 6px 6px 6px 30px;
+    background-image: -webkit-gradient(linear, left top, right top, from(#5381fe), to(#1b3b94));
+    background-image: linear-gradient(to right, #5381fe 0%, #1b3b94 100%);
+  }
+  .wrap .content .container .s_charts {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+  .wrap .content .container .footer {
+    margin-top: 1rem;
+    text-align: center;
+    color: #7890bc;
+    font-size: 0.2rem;
+  }
+  .wrap .content .container .section1 #chart1,
+  .wrap .content .container .section1 #chart2 {
+    z-index: 2;
+    width: 6.7rem;
+    height: 8rem;
+  }
+  .wrap .content .container .section1 #chart3,
+  .wrap .content .container .section1 #chart5 {
+    z-index: 2;
+    width: 6.7rem;
+    height: 8rem;
+  }
+  .wrap .content .container .section1 .chart3_content {
+    position: relative;
+  }
+  .wrap .content .container .section1 .chart3_content .chart_box {
+    position: absolute;
+    left: 1.3rem;
+    top: 1.2rem;
+    font-size: 0.34rem;
+    color: #ffffff;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    width: 4.6rem;
+  }
+  .wrap .content .container .section1 .chart3_content .chart_box p {
+    width: 0.8rem;
+    text-align: right;
+  }
+  .wrap .content .container .section1 .chart3_content .chart_item {
+    position: absolute;
+    left: 0.3rem;
+    bottom: -0.1rem;
+  }
+  .wrap .content .container .section1 .chart3_content .chart_item .box {
+    width: 5.9rem;
+    height: 2rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+  .wrap .content .container .section1 .chart3_content .chart_item .box .box_bg2 {
+    width: 1.6rem;
+    height: 0.7rem;
+    font-size: 0.14rem;
+    border-radius: 12px;
+  }
+  .wrap .content .container .section1 .chart3_content .chart_item .box .box_bg2 input[type="radio"] {
+    display: none;
+  }
+  .wrap .content .container .section1 .chart3_content .chart_item .box .box_bg2 label {
+    cursor: pointer;
+    margin-left: 0;
+    width: 1.6rem;
+    line-height: 0;
+    font-size: 0.26rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+  .wrap .content .container .section1 .chart2_content #chart2Box {
+    position: absolute;
+    left: 0.25rem;
+    bottom: 1rem;
+    width: 6.2rem;
+    height: 1.1rem;
+  }
+  .wrap .content .container .section1 .chart2_content #chart2Box .box {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+  }
+  .wrap .content .container .section1 .chart2_content #chart2Box .box .box_bg {
+    position: relative;
+    width: 1.4rem;
+    height: 1.5rem;
+    border-radius: 0.06rem;
+    background-color: #505f7b;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+  .wrap .content .container .section1 .chart2_content #chart2Box .box .box_bg .name {
+    padding-top: 0.1rem;
+    font-size: 0.3rem;
+  }
+  .wrap .content .container .section1 .chart2_content #chart2Box .box .box_bg .num {
+    font-size: 0.5rem;
+  }
+  .wrap .content .container .section1 .chart2_content #chart2Box .box .li1_color::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: -0.2rem;
+    width: 1.4rem;
+    height: 0.15rem;
+    border-radius: 0.06rem;
+    background-image: -webkit-gradient(linear, left top, right top, from(#5381fe), to(#1b3b94));
+    background-image: linear-gradient(to right, #5381fe 0%, #1b3b94 100%);
+  }
+  .wrap .content .container .section1 .chart2_content #chart2Box .box .li2_color::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: -0.2rem;
+    width: 1.4rem;
+    height: 0.15rem;
+    border-radius: 0.06rem;
+    background-image: -webkit-gradient(linear, left top, right top, from(#90d2fa), to(#1b3b94));
+    background-image: linear-gradient(to right, #90d2fa 0%, #1b3b94 100%);
+  }
+  .wrap .content .container .section1 .chart2_content #chart2Box .box .li3_color::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: -0.2rem;
+    width: 1.4rem;
+    height: 0.15rem;
+    border-radius: 0.06rem;
+    background-image: -webkit-gradient(linear, left top, right top, from(#60dfc3), to(#1b3b94));
+    background-image: linear-gradient(to right, #60dfc3 0%, #1b3b94 100%);
+  }
+  .wrap .content .container .section1 .chart2_content #chart2Box .box .li4_color::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: -0.2rem;
+    width: 1.4rem;
+    height: 0.15rem;
+    border-radius: 0.06rem;
+    background-image: -webkit-gradient(linear, left top, right top, from(#af8ddf), to(#1b3b94));
+    background-image: linear-gradient(to right, #af8ddf 0%, #1b3b94 100%);
+  }
+  .wrap .content .container .section2 {
+    margin-top: 85px;
+  }
+  .wrap .content .container .section2 #chart4 {
+    margin-top: 0.2rem;
+    z-index: 2;
+    width: 6.7rem;
+    height: 12rem;
+  }
+  .wrap .content .container .section2 #chart4Box .bookmark {
+    position: absolute;
+    width: 100%;
+    height: 0.5rem;
+    top: 1.7rem;
+    left: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+  }
+  .wrap .content .container .section2 #chart4Box .bookmark ul {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 9rem;
+    -webkit-box-pack: space-evenly;
+    -ms-flex-pack: space-evenly;
+    justify-content: space-evenly;
+  }
+  .wrap .content .container .section2 #chart4Box .bookmark ul li {
+    width: 1.3rem;
+    height: 0.6rem;
+    border-top-left-radius: 0.2rem;
+    border-top-right-radius: 0.2rem;
+    cursor: pointer;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    font-size: 0.24rem;
+    border: 1px solid #4d7bfe;
+    background: #2b3349;
+    color: #4d7bfe;
+  }
+  .wrap .content .container .section2 #chart4Box .bookmark ul .itemEnableStatus {
+    background-image: -webkit-gradient(linear, left top, right top, from(#5381fe), to(#1b3b94));
+    background-image: linear-gradient(to right, #5381fe 0%, #1b3b94 100%);
+    color: #ffffff;
+    position: relative;
+  }
+  .wrap .content .container .section2 #chart4Box .bookmark ul .itemEnableStatus::after {
+    content: "";
+    position: absolute;
+    left: -0.03rem;
+    bottom: -0.13rem;
+    width: 1.36rem;
+    height: 0.06rem;
+    background-image: -webkit-gradient(linear, left top, right top, from(#84ffcf), to(#4d7bfe));
+    background-image: linear-gradient(to right, #84ffcf 0%, #4d7bfe 100%);
+    border-radius: 0.3rem;
+  }
+  .wrap .content .container .section2 #chart4Box .num {
+    font-size: 0.55rem;
+    font-weight: 600;
+    line-height: 0.5rem;
+    padding-top: 0.04rem;
+  }
+  .wrap .content .container .section2 #chart4Box .name {
+    font-size: 0.3rem;
+    font-weight: 300;
+  }
+  .wrap .content .container .section2 #chart4Box .option {
+    font-size: 0.28rem;
+    color: #4d7bfe;
+    font-weight: 600;
+  }
+  .wrap .content .container .section2 #chart4Box .first_left,
+  .wrap .content .container .section2 #chart4Box .first_center,
+  .wrap .content .container .section2 #chart4Box .first_right,
+  .wrap .content .container .section2 #chart4Box .second_Left,
+  .wrap .content .container .section2 #chart4Box .second_Center,
+  .wrap .content .container .section2 #chart4Box .second_Right {
+    position: absolute;
+    left: 0.68rem;
+    top: 3.5rem;
+    width: 2rem;
+    height: 1.2rem;
+  }
+  .wrap .content .container .section2 #chart4Box .first_left .long_short,
+  .wrap .content .container .section2 #chart4Box .first_center .long_short,
+  .wrap .content .container .section2 #chart4Box .first_right .long_short,
+  .wrap .content .container .section2 #chart4Box .second_Left .long_short,
+  .wrap .content .container .section2 #chart4Box .second_Center .long_short,
+  .wrap .content .container .section2 #chart4Box .second_Right .long_short {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    position: absolute;
+    left: 0.4rem;
+    top: -0.7rem;
+    width: 2rem;
+    height: 0.3rem;
+  }
+  .wrap .content .container .section2 #chart4Box .first_left .long_short .long,
+  .wrap .content .container .section2 #chart4Box .first_left .long_short .short,
+  .wrap .content .container .section2 #chart4Box .first_center .long_short .long,
+  .wrap .content .container .section2 #chart4Box .first_center .long_short .short,
+  .wrap .content .container .section2 #chart4Box .first_right .long_short .long,
+  .wrap .content .container .section2 #chart4Box .first_right .long_short .short,
+  .wrap .content .container .section2 #chart4Box .second_Left .long_short .long,
+  .wrap .content .container .section2 #chart4Box .second_Left .long_short .short,
+  .wrap .content .container .section2 #chart4Box .second_Center .long_short .long,
+  .wrap .content .container .section2 #chart4Box .second_Center .long_short .short,
+  .wrap .content .container .section2 #chart4Box .second_Right .long_short .long,
+  .wrap .content .container .section2 #chart4Box .second_Right .long_short .short {
+    width: 0.8rem;
+    height: 0.5rem;
+    border: 1px solid #4d7bfe;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    cursor: pointer;
+    color: #4d7bfe;
+    background: rgba(0, 0, 0, 0);
+  }
+  .wrap .content .container .section2 #chart4Box .first_left .long_short .short,
+  .wrap .content .container .section2 #chart4Box .first_center .long_short .short,
+  .wrap .content .container .section2 #chart4Box .first_right .long_short .short,
+  .wrap .content .container .section2 #chart4Box .second_Left .long_short .short,
+  .wrap .content .container .section2 #chart4Box .second_Center .long_short .short,
+  .wrap .content .container .section2 #chart4Box .second_Right .long_short .short {
+    border-top-left-radius: 0.2rem;
+    border-bottom-left-radius: 0.2rem;
+  }
+  .wrap .content .container .section2 #chart4Box .first_left .long_short .long,
+  .wrap .content .container .section2 #chart4Box .first_center .long_short .long,
+  .wrap .content .container .section2 #chart4Box .first_right .long_short .long,
+  .wrap .content .container .section2 #chart4Box .second_Left .long_short .long,
+  .wrap .content .container .section2 #chart4Box .second_Center .long_short .long,
+  .wrap .content .container .section2 #chart4Box .second_Right .long_short .long {
+    border-top-right-radius: 0.2rem;
+    border-bottom-right-radius: 0.2rem;
+  }
+  .wrap .content .container .section2 #chart4Box .first_left .long_short .shortEnable,
+  .wrap .content .container .section2 #chart4Box .first_center .long_short .shortEnable,
+  .wrap .content .container .section2 #chart4Box .first_right .long_short .shortEnable,
+  .wrap .content .container .section2 #chart4Box .second_Left .long_short .shortEnable,
+  .wrap .content .container .section2 #chart4Box .second_Center .long_short .shortEnable,
+  .wrap .content .container .section2 #chart4Box .second_Right .long_short .shortEnable {
+    background: rgba(0, 0, 0, 0);
+    color: #ffffff;
+    background-image: -webkit-gradient(linear, left top, right top, from(#5381fe), to(#1b3b94));
+    background-image: linear-gradient(to right, #5381fe 0%, #1b3b94 100%);
+  }
+  .wrap .content .container .section2 #chart4Box .first_left .long_short .longEnable,
+  .wrap .content .container .section2 #chart4Box .first_center .long_short .longEnable,
+  .wrap .content .container .section2 #chart4Box .first_right .long_short .longEnable,
+  .wrap .content .container .section2 #chart4Box .second_Left .long_short .longEnable,
+  .wrap .content .container .section2 #chart4Box .second_Center .long_short .longEnable,
+  .wrap .content .container .section2 #chart4Box .second_Right .long_short .longEnable {
+    background: rgba(0, 0, 0, 0);
+    color: #ffffff;
+    background-image: -webkit-gradient(linear, right top, left top, from(#5381fe), to(#1b3b94));
+    background-image: linear-gradient(to left, #5381fe 0%, #1b3b94 100%);
+  }
+  .wrap .content .container .section2 #chart4Box .first_center {
+    left: 3.69rem;
+  }
+  .wrap .content .container .section2 #chart4Box .first_right {
+    top: 7.1rem;
+  }
+  .wrap .content .container .section2 #chart4Box .second_Left {
+    top: 7.1rem;
+    left: 3.69rem;
+  }
+  .wrap .content .container .section2 #chart4Box .second_Center {
+    top: 10.7rem;
+    left: 0.68rem;
+  }
+  .wrap .content .container .section2 #chart4Box .second_Right {
+    top: 10.7rem;
+    left: 3.69rem;
+  }
+  .wrap .content .container .section3 {
+    margin-top: 100px;
+  }
+  .wrap .content .container .section3 #chart5 {
+    margin-top: 0.2rem;
+    z-index: 2;
+    width: 6.7rem;
+    height: 8rem;
+  }
+  .wrap .content .container .section4 {
+    margin-top: 100px;
+  }
+  .wrap .content .container .section4 #chart6,
+  .wrap .content .container .section4 #chart7 {
+    z-index: 2;
+    width: 6.7rem;
+    height: 8rem;
+  }
+  .wrap .content .container .chart1_content,
+  .wrap .content .container .chart6_content,
+  .wrap .content .container .chart7_content {
+    position: relative;
+  }
+  .wrap .content .container .chart1_content .box,
+  .wrap .content .container .chart6_content .box,
+  .wrap .content .container .chart7_content .box {
+    width: 5.9rem;
+    height: 2rem;
+    z-index: 5;
+    position: absolute;
+    left: 0.76rem;
+    bottom: 1rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+  .wrap .content .container .chart1_content .box .box_bg,
+  .wrap .content .container .chart6_content .box .box_bg,
+  .wrap .content .container .chart7_content .box .box_bg {
+    width: 1.6rem;
+    height: 0.7rem;
+    font-size: 0.14rem;
+    border-radius: 12px;
+    -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#5381fe), to(#1b3b94));
+    background-image: linear-gradient(to bottom, #5381fe 0%, #1b3b94 100%);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin: 0.2rem 0.2rem 0 0;
+  }
+  .wrap .content .container .chart1_content .box .box_bg input[type="radio"],
+  .wrap .content .container .chart6_content .box .box_bg input[type="radio"],
+  .wrap .content .container .chart7_content .box .box_bg input[type="radio"] {
+    display: none;
+  }
+  .wrap .content .container .chart1_content .box .box_bg label,
+  .wrap .content .container .chart6_content .box .box_bg label,
+  .wrap .content .container .chart7_content .box .box_bg label {
+    cursor: pointer;
+    margin-left: 0;
+    width: 1.6rem;
+    line-height: 0;
+    font-size: 0.26rem;
+  }
+  .wrap .content .container .chart1_content .box .box_bg input[type="radio"]:checked,
+  .wrap .content .container .chart6_content .box .box_bg input[type="radio"]:checked,
+  .wrap .content .container .chart7_content .box .box_bg input[type="radio"]:checked {
+    width: 20px;
+    height: 20px;
+    border: 0;
+    border-radius: 0.15rem;
+    background: #4d7bfe;
+    border: 4px solid #fff;
+  }
+}
+/*# sourceMappingURL=style.css.map */
